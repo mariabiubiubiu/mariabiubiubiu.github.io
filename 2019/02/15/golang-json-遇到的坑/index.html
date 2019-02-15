@@ -9,13 +9,14 @@
   <title>golang json 遇到的坑 | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="遇到了一个坑 使用golang bindjson的时候 无论如何也获取不到数据">
+<meta name="keywords" content="踩坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang json 遇到的坑">
 <meta property="og:url" content="http://yoursite.com/2019/02/15/golang-json-遇到的坑/index.html">
 <meta property="og:site_name" content="Mario">
 <meta property="og:description" content="遇到了一个坑 使用golang bindjson的时候 无论如何也获取不到数据">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T02:59:48.000Z">
+<meta property="og:updated_time" content="2019-02-15T03:03:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang json 遇到的坑">
 <meta name="twitter:description" content="遇到了一个坑 使用golang bindjson的时候 无论如何也获取不到数据">
@@ -184,17 +185,7 @@
 <p>后来发现是struct内的大小写问题</p>
 <p>但是好奇 大小写只是控制public private 的啊，为什么在同一个包访问会导致我访问不了呢？</p>
 <p>最后发现是涉及到反射的后 不能访问。做了一个简单测试</p>
-<p>type Point struct {<br>    X int<br>    Y string<br>}</p>
-<p>func main() {</p>
-<pre><code>po := Point{3, &quot;ddd&quot;}
-s := reflect.ValueOf(&amp;po).Elem()
-
-for i := 0; i &lt; s.NumField(); i++ {
-    f := s.Field(i)
-    fmt.Printf(&quot; %s %v \n&quot;, f.Type(), f.Interface())
-}
-</code></pre><p>}</p>
-<p>输出：<br>int 3<br>string ddd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">type Point struct &#123;</span><br><span class="line">	X int</span><br><span class="line">	Y string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	po := Point&#123;3, &quot;ddd&quot;&#125;</span><br><span class="line">	s := reflect.ValueOf(&amp;po).Elem()</span><br><span class="line"></span><br><span class="line">	for i := 0; i &lt; s.NumField(); i++ &#123;</span><br><span class="line">		f := s.Field(i)</span><br><span class="line">		fmt.Printf(&quot; %s %v \n&quot;, f.Type(), f.Interface())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">int 3 </span><br><span class="line">string ddd</span><br></pre></td></tr></table></figure>
 <p>当把xy改为小写后 则不能访问，猜测这也就是不能访问的原因的吧</p>
 
       
@@ -225,6 +216,17 @@ for i := 0; i &lt; s.NumField(); i++ {
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">踩坑</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -417,6 +419,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">踩坑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">golang 博客</a>
               </li>
              
@@ -429,11 +435,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
