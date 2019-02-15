@@ -161,6 +161,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-golang中的json转换" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/26/golang中的json转换/">golang中的json转换</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/26/golang中的json转换/" class="archive-article-date">
+  	<time datetime="2018-09-26T10:02:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一个项目遇到的最多的一个问题就是使用json的时候不能确定业务方发来的数据是整形还是字符串类型</p>
+<p>现在找到了一个比较简单的方法优雅的解决掉这个问题<br><!-- more -- >
+首先定义一个结构体
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Host struct &#123;</span><br><span class="line">    Name string `json:&quot;name&quot;`</span><br><span class="line">    Port Port   `json:&quot;port&quot;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>心细的你会发现，Port既不是int也不是string类型，而是Port类型，而Port类型是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type Type int</span><br><span class="line"></span><br><span class="line">const (</span><br><span class="line">    Int Type = iota</span><br><span class="line">    String</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Port struct &#123;</span><br><span class="line">    Type   Type</span><br><span class="line">    IntVal int</span><br><span class="line">    StrVal string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Port结构体中，我们发现了Type类型， 而Type类型包括了int,string两种类型。接下来就非常重要了，我们需要实现以下这两个接口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">json.Unmarshaller interface</span><br><span class="line">json.Marshaller interface</span><br></pre></td></tr></table></figure></p>
+<p>实现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">type Port struct &#123;</span><br><span class="line">    Type   Type</span><br><span class="line">    IntVal int</span><br><span class="line">    StrVal string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实现 json.Unmarshaller 接口</span><br><span class="line">func (port *Port) UnmarshalJSON(value []byte) error &#123;</span><br><span class="line">    if value[0] == &apos;&quot;&apos; &#123;</span><br><span class="line">        port.Type = String</span><br><span class="line">        return json.Unmarshal(value, &amp;port.StrVal)</span><br><span class="line">    &#125;</span><br><span class="line">    port.Type = Int</span><br><span class="line">    return json.Unmarshal(value, &amp;port.IntVal)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实现 json.Marshaller 接口</span><br><span class="line">func (port Port) MarshalJSON() ([]byte, error) &#123;</span><br><span class="line">    switch port.Type &#123;</span><br><span class="line">    case Int:</span><br><span class="line">        return json.Marshal(port.IntVal)</span><br><span class="line">    case String:</span><br><span class="line">        return json.Marshal(port.StrVal)</span><br><span class="line">    default:</span><br><span class="line">        return []byte&#123;&#125;, fmt.Errorf(&quot;impossible Port.Type&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单的数据结构可以这样解决吧。算是一种方法。</p>
+--></p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">golang 博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/26/golang中的json转换/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-什么是dp，dp的意义何在" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -790,11 +872,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">踩坑</a>
+                <a href="javascript:void(0)" class="js-tag color5">golang 博客</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">golang 博客</a>
+                <a href="javascript:void(0)" class="js-tag color3">踩坑</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,7 +888,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">mac</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,6 +897,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

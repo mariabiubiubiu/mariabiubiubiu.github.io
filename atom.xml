@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-02-15T03:03:00.000Z</updated>
+  <updated>2019-02-15T03:20:40.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac的homebrew 安装路径 + redis Failed opening the RDB file dump.rdb</title>
+    <link href="http://yoursite.com/2019/02/15/mac-%E7%9A%84-homebrew-%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/"/>
+    <id>http://yoursite.com/2019/02/15/mac-的-homebrew-安装路径/</id>
+    <published>2019-02-15T03:16:32.000Z</published>
+    <updated>2019-02-15T03:20:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>安装redis 后 一直报错：Failed opening the RDB file dump.rdb<br><a id="more"></a><br>猜测是没有权限，想找到redis的安装目录，但是安装是实用的 brew install安装的</p><p>homebrew在安装时,默认把redis.conf文件放到了 /usr/local/etc/redis.conf</p><p>但是我想找到 redis的具体安装目录<br>然后发现了这个命令</p><p>brew –prefix<br>/usr/local/opt/redis</p><p>brew config | grep HOMEBREW</p><p>找到 /usr/local/opt/redis 后 使用chmod 755 来改变权限后 再次启动依然报错。</p><p>最后解决办法。。sudo<br>（好了 我知道这篇文章没什么意思哈哈哈哈，就是记录一下学习的 过程）</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;安装redis 后 一直报错：Failed opening the RDB file dump.rdb&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="踩坑" scheme="http://yoursite.com/tags/%E8%B8%A9%E5%9D%91/"/>
+    
+      <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
+    
+  </entry>
   
   <entry>
     <title>golang json 遇到的坑</title>
