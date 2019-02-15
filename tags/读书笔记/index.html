@@ -6,30 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>算法思想-排序部分 | Mario</title>
+  <title>Tag: 读书笔记 | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从排序说起：">
-<meta name="keywords" content="博客">
-<meta property="og:type" content="article">
-<meta property="og:title" content="算法思想-排序部分">
-<meta property="og:url" content="http://yoursite.com/2018/09/25/算法思想/index.html">
+  <meta name="description" content="听从你心,无问西东">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mario">
+<meta property="og:url" content="http://yoursite.com/tags/读书笔记/index.html">
 <meta property="og:site_name" content="Mario">
-<meta property="og:description" content="从排序说起：">
+<meta property="og:description" content="听从你心,无问西东">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/img/选择排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/冒泡排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/插入排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/希尔排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/归并排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/快速排序.gif">
-<meta property="og:image" content="http://yoursite.com/img/双路快速排序.jpg">
-<meta property="og:image" content="http://yoursite.com/img/heap1.png">
-<meta property="og:image" content="http://yoursite.com/img/heap2.png">
-<meta property="og:updated_time" content="2018-11-18T11:40:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法思想-排序部分">
-<meta name="twitter:description" content="从排序说起：">
-<meta name="twitter:image" content="http://yoursite.com/img/选择排序.gif">
+<meta name="twitter:title" content="Mario">
+<meta name="twitter:description" content="听从你心,无问西东">
   
     <link rel="alternative" href="/atom.xml" title="Mario" type="application/atom+xml">
   
@@ -171,225 +159,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-算法思想" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      算法思想-排序部分
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/02/15/redis-深度历险读书笔记（一）/" class="archive-article-date">
+  	<time datetime="2019-02-15T06:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/02/15/redis-深度历险读书笔记（一）/">redis 深度历险读书笔记（一）</a>
     </h1>
   
 
-        
-        <a href="/2018/09/25/算法思想/" class="archive-article-date">
-  	<time datetime="2018-09-25T10:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从排序说起：</p>
-<a id="more"></a>
-<p>1，选择排序<br><img src="/img/选择排序.gif" alt="avatar"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(int[] arr) &#123;</span><br><span class="line">    for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        // 寻找[i, n)区间里的最小值的索引</span><br><span class="line">        int minIndex = i;</span><br><span class="line">        for (int j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">            if(arr[minIndex] &gt; arr[j])&#123;</span><br><span class="line">                minIndex = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap( arr , i , minIndex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>，最简单的例子 冒泡排序<br><img src="/img/冒泡排序.gif" alt="avatar"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private static void sort(int[] arr) &#123;</span><br><span class="line">    for (int i = arr.length - 1; i &gt; 0; i--) &#123; // 从最后一位开始确定</span><br><span class="line">        boolean swapped = false;</span><br><span class="line">        for (int j = 0; j &lt; i; j++) &#123;</span><br><span class="line">            if(arr[j] &gt; arr[j+1])&#123;</span><br><span class="line">                swapped = true;</span><br><span class="line">                swap(arr,j,j+1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(!swapped)</span><br><span class="line">            return;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了吧。理论上讲，选择排序可能也是平时排序一般人想到的最多的排序方法了吧。</p>
-<ol start="2">
-<li>插入排序（Insertion Sort）最简单的例子：平时玩扑克牌的时候插入排序<br><img src="/img/插入排序.gif" alt="avatar"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(int[] arr) &#123;</span><br><span class="line">    for (int i = 0; i &lt; arr.length - 1; i++) &#123;</span><br><span class="line">        for (int j = i + 1; j &gt; 0; j--) &#123;</span><br><span class="line">            if (arr[j] &lt; arr[j - 1])</span><br><span class="line">                swap(arr, j, j - 1); // 大量的交换会消耗时间</span><br><span class="line">            else</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>另一种改进的减少了数组元素的操作次数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 改进版插入排序（减少了数组元素的操作次数）</span><br><span class="line">public static void better_sort(int[] arr) &#123;</span><br><span class="line">    for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        int e = arr[i];</span><br><span class="line">        int j = i;</span><br><span class="line">        for (; j &gt; 0; j--) &#123;</span><br><span class="line">            if (e &lt; arr[j - 1])</span><br><span class="line">                arr[j] = arr[j - 1];</span><br><span class="line">            else</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] = e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
-<p>3,希尔排序（Shell Sort）（为什么可以突破n2）<br>1959年Shell发明，第一个突破O(n2)的排序算法，是简单插入排序的改进版。它与插入排序的不同之处在于，它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。<br><img src="/img/希尔排序.gif" alt="avatar"><br>算法描述</p>
-<p>先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：</p>
-<p>选择一个增量序列t1，t2，…，tk，其中ti&gt;tj，tk=1；<br>按增量序列个数k，对序列进行k 趟排序；<br>每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(int[] arr) &#123;</span><br><span class="line">    int n = arr.length;</span><br><span class="line">    for (int h = n / 2; h &gt; 0; h = h / 2) &#123;</span><br><span class="line">        // 内部是一个插入排序</span><br><span class="line">        for (int i = 0; i &lt; n; i = i + h) &#123;</span><br><span class="line">            int e = arr[i];</span><br><span class="line">            int j = i;</span><br><span class="line">            for (; j &gt; 0; j = j - h) &#123;</span><br><span class="line">                if (e &lt; arr[j - h])</span><br><span class="line">                    arr[j] = arr[j - h];</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另外一种方式要计算步长<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void sort2(int[] arr) &#123;</span><br><span class="line">    int n = arr.length;</span><br><span class="line">    // 计算 increment sequence: 1, 4, 13, 40, 121, 364, 1093...</span><br><span class="line">    int h = 1;</span><br><span class="line">    while (h &lt; n / 3) h = 3 * h + 1;</span><br><span class="line"></span><br><span class="line">        System.out.println(h);</span><br><span class="line">        while (h &gt;= 1) &#123;</span><br><span class="line">            // h-sort the array</span><br><span class="line">            for (int i = h; i &lt; n; i++) &#123;</span><br><span class="line">                // 对 arr[i], arr[i-h], arr[i-2*h], arr[i-3*h]... 使用插入排序</span><br><span class="line">                int e = arr[i];</span><br><span class="line">                int j = i;</span><br><span class="line">                for (; j &gt;= h &amp;&amp; e &lt; arr[j - h]; j -= h)</span><br><span class="line">                    arr[j] = arr[j - h];</span><br><span class="line">                arr[j] = e;</span><br><span class="line">            &#125;</span><br><span class="line">            h /= 3;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对于大规模的数组，插入排序很慢，因为它只能交换相邻的元素，每次只能将逆序数量减少 1。</p>
-<p>希尔排序的出现就是为了改进插入排序的这种局限性，它通过交换不相邻的元素，每次可以将逆序数量减少大于 1。</p>
-<p>希尔排序使用插入排序对间隔 h 的序列进行排序。通过不断减小 h，最后令 h=1，就可以使得整个数组是有序的。</p>
-<p>#为了改进插入排序的这种局限性</p>
-<ol start="4">
-<li>归并排序（Merge Sort）<br><img src="/img/归并排序.gif" alt="avatar"><br>归并排序的思想是将数组分成两部分，分别进行排序，然后归并起来。把长度为n的输入序列分成两个长度为n/2的子序列；对这两个子序列分别采用归并排序；将两个排序好的子序列合并成一个最终的排序序列.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">private static void sort(int[] arr) &#123;</span><br><span class="line">    __MergeSort(arr, 0, arr.length - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void __MergeSort(int[] arr, int l, int r) &#123;</span><br><span class="line">    if (l &gt;= r)</span><br><span class="line">        return;</span><br><span class="line">    int mid = (l + r) / 2;</span><br><span class="line">    __MergeSort(arr, l, mid);</span><br><span class="line">    __MergeSort(arr, mid + 1, r);</span><br><span class="line">    merge(arr, l, mid, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 将arr[l...mid]和arr[mid+1...r]两部分进行归并</span><br><span class="line">private static void merge(int[] arr, int l, int mid, int r) &#123;</span><br><span class="line">    int[] aux = Arrays.copyOfRange(arr, l, r + 1);</span><br><span class="line"></span><br><span class="line">    // 初始化，i指向左半部分的起始索引位置l；j指向右半部分起始索引位置mid+1</span><br><span class="line">    int i = l, j = mid + 1;</span><br><span class="line">    for (int k = l; k &lt;= r; k++) &#123;</span><br><span class="line">        if (i &gt; mid) &#123;  // 如果左半部分元素已经全部处理完毕</span><br><span class="line">            arr[k] = aux[j - l];</span><br><span class="line">            j++;</span><br><span class="line">        &#125; else if (j &gt; r) &#123;   // 如果右半部分元素已经全部处理完毕</span><br><span class="line">            arr[k] = aux[i - l];</span><br><span class="line">            i++;</span><br><span class="line">        &#125; else if (aux[i - l] &lt; aux[j - l]) &#123;  // 左半部分所指元素 &lt; 右半部分所指元素</span><br><span class="line">            arr[k] = aux[i - l];</span><br><span class="line">            i++;</span><br><span class="line">        &#125; else &#123;  // 左半部分所指元素 &gt;= 右半部分所指元素</span><br><span class="line">            arr[k] = aux[j - l];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>5，快速排序<br>快速排序是原地排序，不需要辅助数组，但是递归调用需要辅助栈。<br><img src="/img/快速排序.gif" alt="avatar"><br>快速排序最好的情况下是每次都正好能将数组对半分，这样递归调用次数才是最少的。这种情况下比较次数为 CN=2CN/2+N，复杂度为 O(NlogN)。</p>
-<p>最坏的情况下，第一次从最小的元素切分，第二次从第二小的元素切分，如此这般。因此最坏的情况下需要比较 N2/2。为了防止数组最开始就是有序的，在进行快速排序时需要随机打乱数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 递归使用快速排序,对arr[l...r]的范围进行排序</span><br><span class="line">public static void QuickSort(int[] arr,int l,int r)&#123;</span><br><span class="line">    if(l&gt;=r)</span><br><span class="line">        return;</span><br><span class="line">    int p = partition(arr,l,r);</span><br><span class="line">    QuickSort(arr,l,p-1);</span><br><span class="line">    QuickSort(arr,p+1,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 将数组通过p分割成两部分</span><br><span class="line">// 对arr[l...r]部分进行partition操作</span><br><span class="line">// 返回p, 使得arr[l...p-1] &lt; arr[p] ; arr[p+1...r] &gt; arr[p]</span><br><span class="line">public static int partition(int[] arr, int l, int r) &#123;</span><br><span class="line">    swap(arr, l, (int) (Math.random() % (r - l + 1)) + l);  // 加入这一行变成随机快速排序</span><br><span class="line"></span><br><span class="line">    int v = arr[l];</span><br><span class="line">    int j = l;</span><br><span class="line">    for(int i = j +1;i&lt;=r;i++)&#123;</span><br><span class="line">        if(arr[i] &lt; v)&#123;</span><br><span class="line">            j++;</span><br><span class="line">            swap(arr,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(arr,l,j);</span><br><span class="line">    //只能确定左边都比他小</span><br><span class="line">    return j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void swap(int[] arr,int i,int j) &#123;</span><br><span class="line">    int temp = arr[i];</span><br><span class="line">    arr[i] = arr[j];</span><br><span class="line">    arr[j] = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>双路的快速排序<br><img src="/img/双路快速排序.jpg" alt="avatar"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">// 双路快速排序的partition</span><br><span class="line">// 返回p, 使得arr[l...p-1] &lt; arr[p] ; arr[p+1...r] &gt; arr[p]</span><br><span class="line">private static int partition(int[] arr, int l, int r) &#123;</span><br><span class="line"></span><br><span class="line">    // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot</span><br><span class="line">    // swap(arr, l, (int) (Math.random() % (r - l + 1)) + l);</span><br><span class="line"></span><br><span class="line">    int v = arr[l];</span><br><span class="line"></span><br><span class="line">    // arr[l+1...i) &lt;= v; arr(j...r] &gt;= v</span><br><span class="line">    int i = l + 1, j = r;</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        // 注意这里的边界, arr[i].compareTo(v) &lt; 0, 不能是arr[i].compareTo(v) &lt;= 0</span><br><span class="line">        // 思考一下为什么?</span><br><span class="line">        while (i &lt;= r &amp;&amp; arr[i] &lt; v)</span><br><span class="line">            i++;</span><br><span class="line"></span><br><span class="line">        // 注意这里的边界, arr[j].compareTo(v) &gt; 0, 不能是arr[j].compareTo(v) &gt;= 0</span><br><span class="line">        // 思考一下为什么?</span><br><span class="line">        while (j &gt;= l + 1 &amp;&amp; arr[j] &gt; v)</span><br><span class="line">            j--;</span><br><span class="line"></span><br><span class="line">        // 对于上面的两个边界的设定, 有的同学在课程的问答区有很好的回答:)</span><br><span class="line">        // 大家可以参考: http://coding.imooc.com/learn/questiondetail/4920.html</span><br><span class="line">        if (i &gt; j)</span><br><span class="line">            break;</span><br><span class="line">        </span><br><span class="line">        swap(arr, i, j);</span><br><span class="line">        i++;</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    swap(arr, l, j);</span><br><span class="line"></span><br><span class="line">    return j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 递归使用快速排序,对arr[l...r]的范围进行排序</span><br><span class="line">private static void QuickSort2Ways(int[] arr, int l, int r) &#123;</span><br><span class="line">    // 对于小规模数组, 使用插入排序</span><br><span class="line">    if (l &gt;= r) return;</span><br><span class="line">    int p = partition(arr, l, r);</span><br><span class="line">    QuickSort2Ways(arr, l, p - 1);</span><br><span class="line">    QuickSort2Ways(arr, p + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>6，堆排序（Heap Sort）</p>
-<ol>
-<li>堆<br>堆的某个节点的值总是大于等于子节点的值，并且堆是一颗完全二叉树。</li>
-</ol>
-<p>堆可以用数组来表示，因为堆是完全二叉树，而完全二叉树很容易就存储在数组中。位置 k 的节点的父节点位置为 k/2，而它的两个子节点的位置分别为 2k 和 2k+1。这里不使用数组索引为 0 的位置，是为了更清晰地描述节点的位置关系。</p>
-<ol start="2">
-<li>上浮和下沉<br>在堆中，当一个节点比父节点大，那么需要交换这个两个节点。交换后还可能比它新的父节点大，因此需要不断地进行比较和交换操作，把这种操作称为上浮（ShiftUp）。</li>
-</ol>
-<p><img src="/img/heap1.png" alt="avatar"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private void shiftUp(int k)&#123;</span><br><span class="line">    while( k &gt; 1 &amp;&amp; data[k/2] &lt; data[k]))&#123;</span><br><span class="line">        swap(k, k/2);</span><br><span class="line">        k /= 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>类似地，当一个节点比子节点来得小，也需要不断地向下进行比较和交换操作，把这种操作称为下沉（Shift Down）。一个节点如果有两个子节点，应当与两个子节点中最大那么节点进行交换。<br><img src="/img/heap2.png" alt="avatar"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">private void shiftDown(int k)&#123;</span><br><span class="line">    while( 2*k &lt;= count )&#123; // 当前结点有左孩子</span><br><span class="line">        int j = 2*k; // 在此轮循环中,data[k]和data[j]交换位置</span><br><span class="line">        if( j+1 &lt;= count &amp;&amp; data[j+1] &gt; data[j] )</span><br><span class="line">            j ++;</span><br><span class="line">        // data[j] 是 data[2*k]和data[2*k+1]中的最大值</span><br><span class="line"></span><br><span class="line">        if( data[k] &gt;= data[j] ) </span><br><span class="line">            break;</span><br><span class="line">        swap(k, j);</span><br><span class="line">        k = j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.插入元素<br>将新元素放到数组末尾，然后上浮到合适的位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 向最大堆中插入一个新的元素 item</span><br><span class="line">public void insert(Item item)&#123;</span><br><span class="line">    assert count + 1 &lt;= capacity;</span><br><span class="line">    data[count+1] = item;</span><br><span class="line">    count ++;</span><br><span class="line">    shiftUp(count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="4">
-<li><p>删除最大元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 从最大堆中取出堆顶元素, 即堆中所存储的最大数据</span><br><span class="line">public Item extractMax()&#123;</span><br><span class="line">    assert count &gt; 0;</span><br><span class="line">    Item ret = data[1];</span><br><span class="line">    </span><br><span class="line">    swap( 1 , count );</span><br><span class="line">    count --;</span><br><span class="line">    shiftDown(1);</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>堆排序</p>
-</li>
-</ol>
-<p>由于堆可以很容易得到最大的元素并删除它，不断地进行这种操作可以得到一个递减序列。如果把最大元素和当前堆中数组的最后一个元素交换位置，并且不删除它，那么就可以得到一个从尾到头的递减序列，从正向来看就是一个递增序列。因此很容易使用堆来进行排序。并且堆排序是原地排序，不占用额外空间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">// 不使用一个额外的最大堆, 直接在原数组上进行原地的堆排序</span><br><span class="line">public class HeapSort &#123;</span><br><span class="line"></span><br><span class="line">    // 对整个arr数组使用HeapSort1排序</span><br><span class="line">    // HeapSort1, 将所有的元素依次添加到堆中, 在将所有元素从堆中依次取出来, 即完成了排序</span><br><span class="line">    // 无论是创建堆的过程, 还是从堆中依次取出元素的过程, 时间复杂度均为O(nlogn)</span><br><span class="line">    // 整个堆排序的整体时间复杂度为O(nlogn)</span><br><span class="line">    public static void sort1(Comparable[] arr)&#123;</span><br><span class="line"></span><br><span class="line">        int n = arr.length;</span><br><span class="line">        MaxHeap&lt;Comparable&gt; maxHeap = new MaxHeap&lt;Comparable&gt;(n);</span><br><span class="line">        for( int i = 0 ; i &lt; n ; i ++ )</span><br><span class="line">            maxHeap.insert(arr[i]);</span><br><span class="line"></span><br><span class="line">        for( int i = n-1 ; i &gt;= 0 ; i -- )</span><br><span class="line">            arr[i] = maxHeap.extractMax();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 只通过shiftDown操作进行排序</span><br><span class="line">    public static void sort2(Comparable[] arr)&#123;</span><br><span class="line">        int n = arr.length;</span><br><span class="line"></span><br><span class="line">        // 注意，此时我们的堆是从0开始索引的</span><br><span class="line">        // 从(最后一个元素的索引-1)/2开始</span><br><span class="line">        // 最后一个元素的索引 = n-1</span><br><span class="line">        for( int i = (n-1-1)/2 ; i &gt;= 0 ; i -- )</span><br><span class="line">            shiftDown2(arr, n, i);</span><br><span class="line"></span><br><span class="line">        for( int i = n-1; i &gt; 0 ; i-- )&#123; // 这个的目的是让序列从小到大排序</span><br><span class="line">            swap( arr, 0, i);</span><br><span class="line">            shiftDown2(arr, i, 0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 交换堆中索引为i和j的两个元素</span><br><span class="line">    private static void swap(Object[] arr, int i, int j)&#123;</span><br><span class="line">        Object t = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = t;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 原始的shiftDown过程</span><br><span class="line">    private static void shiftDown(Comparable[] arr, int n, int k)&#123;</span><br><span class="line">        while( 2*k+1 &lt; n )&#123;</span><br><span class="line">            int j = 2*k+1;</span><br><span class="line">            if( j+1 &lt; n &amp;&amp; arr[j+1].compareTo(arr[j]) &gt; 0 )</span><br><span class="line">                j += 1;</span><br><span class="line"></span><br><span class="line">            if( arr[k].compareTo(arr[j]) &gt;= 0 )break;</span><br><span class="line"></span><br><span class="line">            swap( arr, k, j);</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 优化的shiftDown过程, 使用赋值的方式取代不断的swap,</span><br><span class="line">    // 该优化思想和我们之前对插入排序进行优化的思路是一致的</span><br><span class="line">    private static void shiftDown2(Comparable[] arr, int n, int k)&#123;</span><br><span class="line"></span><br><span class="line">        Comparable e = arr[k];</span><br><span class="line">        while( 2*k+1 &lt; n )&#123;</span><br><span class="line">            int j = 2*k+1;</span><br><span class="line">            if( j+1 &lt; n &amp;&amp; arr[j+1].compareTo(arr[j]) &gt; 0 )</span><br><span class="line">                j += 1;</span><br><span class="line"></span><br><span class="line">            if( e.compareTo(arr[j]) &gt;= 0 )</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">            arr[k] = arr[j];</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        arr[k] = e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 测试 HeapSort</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Integer[] arr = &#123;10, 91, 8, 7, 6, 5, 4, 3, 2, 1&#125;;</span><br><span class="line">        HeapSort.sort2(arr);</span><br><span class="line">        PrintHelper.printArray(arr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/25/算法思想/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/09/25/redis面试/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          redis面试
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/09/25/职业规划/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">职业规划</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -412,9 +239,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

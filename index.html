@@ -46,8 +46,8 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src=" https:="" ss0.bdstatic.com="" 94ojfd_baact8t7mm9gukt-xh_="" timg?image&amp;quality="100&amp;size=b4000_4000&amp;sec=1537888887&amp;di=ae70f53c85bd635541b97c4750e8c16b&amp;src=http://www.qqzhi.com/uploadpic/2014-09-22/185005466.jpg" class="js-avatar" show"="">
-		</img src="></a>
+			<img src="https: ss0.bdstatic.com="" 94ojfd_baact8t7mm9gukt-xh_="" timg?image&amp;quality="100&amp;size=b4000_4000&amp;sec=1537888887&amp;di=ae70f53c85bd635541b97c4750e8c16b&amp;src=http://www.qqzhi.com/uploadpic/2014-09-22/185005466.jpg" class="js-avatar" show"="">
+		</img src="https:></a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Mario MU</a></h1>
 		</hgroup>
@@ -160,6 +160,132 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-redis-深度历险读书笔记（一）" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/redis-深度历险读书笔记（一）/">redis 深度历险读书笔记（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/15/redis-深度历险读书笔记（一）/" class="archive-article-date">
+  	<time datetime="2019-02-15T06:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一章节</p>
+<p>redis 学习：</p>
+<p>string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。 </p>
+<p>String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。 </p>
+<p>Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配，内部为当前字 符串实际分配的空间 capacity 一般要高于实际字符串长度 len。当字符串长度小于 1M 时， 扩容都是加倍现有的空间，如果超过 1M，扩容时一次只会多扩 1M 的空间。需要注意的是 字符串最大长度为 512M。 </p>
+<p>Set/get/del/ mset/ mget/expire／setex = set + expire／setnx。不存在 则创建／incrby/</p>
+<p>mget/mset  是批量获取</p>
+<p>Incrb/Incrby 还可以对它进行自增操作。自增是有范围的，它的范围是 signed long </p>
+<p>list (列表)<br>Redis 的列表相当于 Java 语言里面的 LinkedList，注意它是链表而不是数组。这意味着 list 的插入和删除操作非常快，时间复杂度为 O(1)，但是索引定位很慢，时间复杂度为 O(n)，这点让人非常意外。<br>  当列表弹出了最后一个元素之后，该数据结构自动被删除，内存被回收。<br>Redis 的列表结构常用来做异步队列使用。将需要延后处理的任务结构体序列化成字符 串塞进 Redis 的列表，另一个线程从这个列表中轮询数据进行处理。 </p>
+<p>右边进左边出:队列  :    rpush/llen/lpop/lpush</p>
+<p>右边进右边出:栈  :rpush/rpop/rpush</p>
+<p>慢操作：lrange lindex </p>
+<p>hash (字典)<br>Redis 的字典相当于 Java 语言里面的 HashMap，它是无序字典。内部实现结构上同 Java 的 HashMap 也是一致的，同样的数组 + 链表二维结构。第一维 hash 的数组位置碰撞 时，就会将碰撞的元素使用链表串接起来。 </p>
+<p>￼<br>hset/hget/</p>
+<p>hset 第一次操作返回1，更新操作返回0</p>
+<p>hgetall # entries()，key 和 value 间隔出现</p>
+<p>hlen</p>
+<p>hmset 插入多条数据</p>
+<p>hincrby  自增</p>
+<p>set (集合)<br>Redis 的集合相当于 Java 语言里面的 HashSet，它内部的键值对是无序的唯一的。它的 内部实现相当于一个特殊的字典，字典中所有的 value 都是一个值 NULL。 </p>
+<p>当集合中最后一个元素移除之后，数据结构自动删除，内存被回收。 set 结构可以用来 存储活动中奖的用户 ID，因为有去重功能，可以保证同一个用户不会中奖两次。 </p>
+<p>sadd。</p>
+<p>smembers 查看所有的。sismember  查看指定member<br>scard 获取长度<br>spop 弹出一个</p>
+<hr>
+<p>zset (有序列表)<br>zset 可能是 Redis 提供的最为特色的数据结构，它也是在面试中面试官最爱问的数据结 构。它类似于 Java 的 SortedSet 和 HashMap 的结合体，一方面它是一个 set，保证了内部 value 的唯一性，另一方面它可以给每个 value 赋予一个 score，代表这个 value 的排序权 重。它的内部实现用的是一种叫着「跳跃列表」的数据结构。 </p>
+<p>应用：<br>zset 可以用来存 粉丝列表，value 值是粉丝的用户 ID，score 是关注时间。我们可以对粉丝列表按关注时间 进行排序。<br>zset 还可以用来存储学生的成绩，value 值是学生的 ID，score 是他的考试成绩。我们 可以对成绩按分数进行排序就可以得到他的名次。 </p>
+<p>命令：<br>zadd + key + score + value<br>zrange books 0 -1 # 按 score 排序列出，参数区间为排名范围<br>zrevrange books 0 -1 # 按 score 逆序列出，参数区间为排名范围<br>zrangebyscore books 0 8.91 # 根据分值区间遍历 zset<br> zrangebyscore books -inf 8.91 withscores # 根据分值区间 (-∞, 8.91] 遍历 zset，同时返 回分值。inf 代表 infinite，无穷大的意思。 </p>
+<p>zrem books “java concurrency” # 删除 value </p>
+<p>zcard  计数<br>zscore 获取指定的分值<br>zrank 排名 从0开始 从小到大</p>
+<p>结构解析：</p>
+<p>zset 要支持随机的插入和删除 </p>
+<hr>
+<p>容器型数据结构的通用规则<br>list/set/hash/zset 这四种数据结构是容器型数据结构，它们共享下面两条通用规则: 1、create if not exists 如果容器不存在，那就创建一个，再进行操作。比如 rpush 操作刚开始是没有列表的，<br>Redis 就会自动创建一个，然后再 rpush 进去新元素。2、drop if no elements 如果容器里元素没有了，那么立即删除元素，释放内存。这意味着 lpop 操作到最后一<br>个元素，列表就消失了。 </p>
+<hr>
+<p>应用：分布式锁</p>
+<p>分布式锁本质上要实现的目标就是在 Redis 里面占一个“茅坑”，当别的进程也要来占 时，发现已经有人蹲在那里了，就只好放弃或者稍后再试。<br>占坑一般是使用 setnx(set if not exists) 指令，只允许被一个客户端占坑。先来先占， 用 完了，再调用 del 指令释放茅坑。<br>但是有个问题，如果逻辑执行到中间出现异常了，可能会导致 del 指令没有被调用，这样 就会陷入死锁，锁永远得不到释放。<br>于是我们在拿到锁之后，再给锁加上一个过期时间，比如 5s，这样即使中间出现异常也 可以保证 5 秒之后锁会自动释放。<br>但是我们又遇见一个问题 还是没有办法 保证set 和设置过期时间 是一起执行的</p>
+<p>如果你需要使用分布式锁， 意味着你不能仅仅使用 Jedis 或者 redis-py 就行了，还得引入分布式锁的 library。<br>set lock:codehole true ex 5 nx OK<br>del lock:codehole<br>但是这样害怕 逻辑执行过长</p>
+<p>有一个更加安全的方案是为 set 指令的 value 参数设置为一个随机数，释放锁时先匹配 随机数是否一致，然后再删除 key。但是匹配 value 和删除 key 不是一个原子操作，Redis 也 没有提供类似于 delifequals 这样的指令，这就需要使用 Lua 脚本来处理了，因为 Lua 脚本可 以保证连续多个指令的原子性执行。 </p>
+<hr>
+<p>应用：延时队列</p>
+<p>对于那些只有一组消费者的消息队列，使用 Redis 就可以非常轻松的搞定。<br>Redis 的 list(列表) 数据结构常用来作为异步消息队列使用，使用rpush/lpush操作入队列， 使用 lpop 和 rpop 来出队列<br>使用过程中有几个问题需要注意：<br>1，队列空了怎么办?<br>当list为空了，就会不停的pop，<br>只需要要线程睡一秒就可以了</p>
+<p>2，队列延迟<br>睡眠会导致消息的延迟增大 </p>
+<p>使用：blpop/brpop。   这两个指令的前缀字符 b 代表的是 blocking，也就是阻塞读 </p>
+<p>3，空闲连接自动断开 </p>
+<p>如果线程一直阻塞在哪里，Redis 的客户端连接就成了闲置连接，闲置过久，服务器一般<br>会主动断开连接，减少闲置资源占用。这个时候 blpop/brpop 会抛出异常来。 所以编写客户端消费者的时候要小心，注意捕获异常，还要重试。… </p>
+<p>4， 锁冲突处理 </p>
+<p>遇到加锁失败怎么办？<br>1、直接抛出异常，通知用户稍后重试;<br>2、sleep 一会再重试;<br>3、将请求转移至延时队列，过一会再试;<br>下面介绍一下。延时队列的实现。</p>
+<p>使用zset(有序列表) 来实现。我们将消息序列化成一个字符串作 为 zset 的 value，这个消息的到期处理时间作为 score，然后用多个线程轮询 zset 获取到期 的任务进行处理，多个线程是为了保障可用性，万一挂了一个线程还有其它线程可以继续处 理。因为有多个线程，所以需要考虑并发争抢任务，确保任务不能被多次执行。 </p>
+<p>···<br>def delay(msg):     msg.id = str(uuid.uuid4()) # 保证 value 值唯一 value = json.dumps(msg)     retry_ts = time.time() + 5 # 5 秒后重试 redis.zadd(“delay-queue”, retry_ts, value)<br>def loop():<br>     while True: # 最多取 1 条<br>        values = redis.zrangebyscore(“delay-queue”, 0, time.time(), start=0, num=1)<br>            if not values:<br>                time.sleep(1) # 延时队列空的，休息 1s<br>                continue         value = values[0] # 拿第一条，也只有一条<br>        success = redis.zrem(“delay-queue”, value) # 从消息队列中移除该消息<br>        if success: # 因为有多进程并发的可能，最终只会有一个进程可以抢到消息<br>            msg = json.loads(value)<br>            handle_msg(msg)<br>····</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/15/redis-深度历险读书笔记（一）/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-mac-的-homebrew-安装路径" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
@@ -842,83 +968,6 @@
 
 
   
-    <article id="post-map结构" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/28/map结构/">map结构</a>
-    </h1>
-  
-
-        
-        <a href="/2018/09/28/map结构/" class="archive-article-date">
-  	<time datetime="2018-09-28T02:59:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>依然是在开发者头条刷到的，看看这些底层原理，感觉对自己很有帮助</p>
-<p>尤其是Map 这样的 Key Value 在软件开发中是非常经典的结构，常用于在内存中存放数据。</p>
-        
-          <a class="article-more-a" href="/2018/09/28/map结构/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/28/map结构/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1020,15 +1069,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">踩坑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">踩坑</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1037,6 +1082,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1053,6 +1102,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">职业规划</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
             
             <div class="clearfix"></div>
