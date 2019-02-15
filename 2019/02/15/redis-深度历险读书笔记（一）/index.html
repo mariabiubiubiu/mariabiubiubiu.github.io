@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>redis 深度历险读书笔记（一） | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章节 redis 学习： string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。  String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。  Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 Array">
+  <meta name="description" content="第一章节">
 <meta name="keywords" content="redis,读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis 深度历险读书笔记（一）">
 <meta property="og:url" content="http://yoursite.com/2019/02/15/redis-深度历险读书笔记（一）/index.html">
 <meta property="og:site_name" content="Mario">
-<meta property="og:description" content="第一章节 redis 学习： string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。  String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。  Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 Array">
+<meta property="og:description" content="第一章节">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T06:23:52.000Z">
+<meta property="og:updated_time" content="2019-02-15T06:26:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis 深度历险读书笔记（一）">
-<meta name="twitter:description" content="第一章节 redis 学习： string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。  String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。  Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 Array">
+<meta name="twitter:description" content="第一章节">
   
     <link rel="alternative" href="/atom.xml" title="Mario" type="application/atom+xml">
   
@@ -181,8 +181,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第一章节</p>
-<p>redis 学习：</p>
+        <p>第一章节<br><a id="more"></a><br>redis 学习：</p>
 <p>string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。 </p>
 <p>String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。 </p>
 <p>Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配，内部为当前字 符串实际分配的空间 capacity 一般要高于实际字符串长度 len。当字符串长度小于 1M 时， 扩容都是加倍现有的空间，如果超过 1M，扩容时一次只会多扩 1M 的空间。需要注意的是 字符串最大长度为 512M。 </p>
@@ -338,6 +337,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/02/15/wrk-性能测试/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          wrk 性能测试
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/02/15/mac-的-homebrew-安装路径/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">mac的homebrew 安装路径 + redis Failed opening the RDB file dump.rdb</div>
@@ -482,11 +490,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">
