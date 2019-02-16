@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>redis 深度历险读书笔记（一） | Mario</title>
+  <title>redis 深度冒险 读书笔记（三） | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章节">
+  <meta name="description" content="Redis 应用（三）“ 应用一：漏斗限流">
 <meta name="keywords" content="读书笔记,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis 深度历险读书笔记（一）">
-<meta property="og:url" content="http://yoursite.com/2019/02/15/redis-深度历险读书笔记（一）/index.html">
+<meta property="og:title" content="redis 深度冒险 读书笔记（三）">
+<meta property="og:url" content="http://yoursite.com/2019/02/16/redis-深度冒险-读书笔记（三）/index.html">
 <meta property="og:site_name" content="Mario">
-<meta property="og:description" content="第一章节">
+<meta property="og:description" content="Redis 应用（三）“ 应用一：漏斗限流">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T06:26:32.000Z">
+<meta property="og:updated_time" content="2019-02-16T08:03:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis 深度历险读书笔记（一）">
-<meta name="twitter:description" content="第一章节">
+<meta name="twitter:title" content="redis 深度冒险 读书笔记（三）">
+<meta name="twitter:description" content="Redis 应用（三）“ 应用一：漏斗限流">
   
     <link rel="alternative" href="/atom.xml" title="Mario" type="application/atom+xml">
   
@@ -161,74 +161,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-redis-深度历险读书笔记（一）" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-redis-深度冒险-读书笔记（三）" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      redis 深度历险读书笔记（一）
+      redis 深度冒险 读书笔记（三）
     </h1>
   
 
         
-        <a href="/2019/02/15/redis-深度历险读书笔记（一）/" class="archive-article-date">
-  	<time datetime="2019-02-15T06:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+        <a href="/2019/02/16/redis-深度冒险-读书笔记（三）/" class="archive-article-date">
+  	<time datetime="2019-02-16T08:01:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第一章节<br><a id="more"></a><br>redis 学习：</p>
-<p>string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。 </p>
-<p>String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。 </p>
-<p>Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配，内部为当前字 符串实际分配的空间 capacity 一般要高于实际字符串长度 len。当字符串长度小于 1M 时， 扩容都是加倍现有的空间，如果超过 1M，扩容时一次只会多扩 1M 的空间。需要注意的是 字符串最大长度为 512M。 </p>
-<p>Set/get/del/ mset/ mget/expire／setex = set + expire／setnx。不存在 则创建／incrby/</p>
-<p>mget/mset  是批量获取</p>
-<p>Incrb/Incrby 还可以对它进行自增操作。自增是有范围的，它的范围是 signed long </p>
-<p>list (列表)<br>Redis 的列表相当于 Java 语言里面的 LinkedList，注意它是链表而不是数组。这意味着 list 的插入和删除操作非常快，时间复杂度为 O(1)，但是索引定位很慢，时间复杂度为 O(n)，这点让人非常意外。<br>  当列表弹出了最后一个元素之后，该数据结构自动被删除，内存被回收。<br>Redis 的列表结构常用来做异步队列使用。将需要延后处理的任务结构体序列化成字符 串塞进 Redis 的列表，另一个线程从这个列表中轮询数据进行处理。 </p>
-<p>右边进左边出:队列  :    rpush/llen/lpop/lpush</p>
-<p>右边进右边出:栈  :rpush/rpop/rpush</p>
-<p>慢操作：lrange lindex </p>
-<p>hash (字典)<br>Redis 的字典相当于 Java 语言里面的 HashMap，它是无序字典。内部实现结构上同 Java 的 HashMap 也是一致的，同样的数组 + 链表二维结构。第一维 hash 的数组位置碰撞 时，就会将碰撞的元素使用链表串接起来。 </p>
-<p>￼<br>hset/hget/</p>
-<p>hset 第一次操作返回1，更新操作返回0</p>
-<p>hgetall # entries()，key 和 value 间隔出现</p>
-<p>hlen</p>
-<p>hmset 插入多条数据</p>
-<p>hincrby  自增</p>
-<p>set (集合)<br>Redis 的集合相当于 Java 语言里面的 HashSet，它内部的键值对是无序的唯一的。它的 内部实现相当于一个特殊的字典，字典中所有的 value 都是一个值 NULL。 </p>
-<p>当集合中最后一个元素移除之后，数据结构自动删除，内存被回收。 set 结构可以用来 存储活动中奖的用户 ID，因为有去重功能，可以保证同一个用户不会中奖两次。 </p>
-<p>sadd。</p>
-<p>smembers 查看所有的。sismember  查看指定member<br>scard 获取长度<br>spop 弹出一个</p>
-<hr>
-<p>zset (有序列表)<br>zset 可能是 Redis 提供的最为特色的数据结构，它也是在面试中面试官最爱问的数据结 构。它类似于 Java 的 SortedSet 和 HashMap 的结合体，一方面它是一个 set，保证了内部 value 的唯一性，另一方面它可以给每个 value 赋予一个 score，代表这个 value 的排序权 重。它的内部实现用的是一种叫着「跳跃列表」的数据结构。 </p>
-<p>应用：<br>zset 可以用来存 粉丝列表，value 值是粉丝的用户 ID，score 是关注时间。我们可以对粉丝列表按关注时间 进行排序。<br>zset 还可以用来存储学生的成绩，value 值是学生的 ID，score 是他的考试成绩。我们 可以对成绩按分数进行排序就可以得到他的名次。 </p>
-<p>命令：<br>zadd + key + score + value<br>zrange books 0 -1 # 按 score 排序列出，参数区间为排名范围<br>zrevrange books 0 -1 # 按 score 逆序列出，参数区间为排名范围<br>zrangebyscore books 0 8.91 # 根据分值区间遍历 zset<br> zrangebyscore books -inf 8.91 withscores # 根据分值区间 (-∞, 8.91] 遍历 zset，同时返 回分值。inf 代表 infinite，无穷大的意思。 </p>
-<p>zrem books “java concurrency” # 删除 value </p>
-<p>zcard  计数<br>zscore 获取指定的分值<br>zrank 排名 从0开始 从小到大</p>
-<p>结构解析：</p>
-<p>zset 要支持随机的插入和删除 </p>
-<hr>
-<p>容器型数据结构的通用规则<br>list/set/hash/zset 这四种数据结构是容器型数据结构，它们共享下面两条通用规则: 1、create if not exists 如果容器不存在，那就创建一个，再进行操作。比如 rpush 操作刚开始是没有列表的，<br>Redis 就会自动创建一个，然后再 rpush 进去新元素。2、drop if no elements 如果容器里元素没有了，那么立即删除元素，释放内存。这意味着 lpop 操作到最后一<br>个元素，列表就消失了。 </p>
-<hr>
-<p>应用：分布式锁</p>
-<p>分布式锁本质上要实现的目标就是在 Redis 里面占一个“茅坑”，当别的进程也要来占 时，发现已经有人蹲在那里了，就只好放弃或者稍后再试。<br>占坑一般是使用 setnx(set if not exists) 指令，只允许被一个客户端占坑。先来先占， 用 完了，再调用 del 指令释放茅坑。<br>但是有个问题，如果逻辑执行到中间出现异常了，可能会导致 del 指令没有被调用，这样 就会陷入死锁，锁永远得不到释放。<br>于是我们在拿到锁之后，再给锁加上一个过期时间，比如 5s，这样即使中间出现异常也 可以保证 5 秒之后锁会自动释放。<br>但是我们又遇见一个问题 还是没有办法 保证set 和设置过期时间 是一起执行的</p>
-<p>如果你需要使用分布式锁， 意味着你不能仅仅使用 Jedis 或者 redis-py 就行了，还得引入分布式锁的 library。<br>set lock:codehole true ex 5 nx OK<br>del lock:codehole<br>但是这样害怕 逻辑执行过长</p>
-<p>有一个更加安全的方案是为 set 指令的 value 参数设置为一个随机数，释放锁时先匹配 随机数是否一致，然后再删除 key。但是匹配 value 和删除 key 不是一个原子操作，Redis 也 没有提供类似于 delifequals 这样的指令，这就需要使用 Lua 脚本来处理了，因为 Lua 脚本可 以保证连续多个指令的原子性执行。 </p>
-<hr>
-<p>应用：延时队列</p>
-<p>对于那些只有一组消费者的消息队列，使用 Redis 就可以非常轻松的搞定。<br>Redis 的 list(列表) 数据结构常用来作为异步消息队列使用，使用rpush/lpush操作入队列， 使用 lpop 和 rpop 来出队列<br>使用过程中有几个问题需要注意：<br>1，队列空了怎么办?<br>当list为空了，就会不停的pop，<br>只需要要线程睡一秒就可以了</p>
-<p>2，队列延迟<br>睡眠会导致消息的延迟增大 </p>
-<p>使用：blpop/brpop。   这两个指令的前缀字符 b 代表的是 blocking，也就是阻塞读 </p>
-<p>3，空闲连接自动断开 </p>
-<p>如果线程一直阻塞在哪里，Redis 的客户端连接就成了闲置连接，闲置过久，服务器一般<br>会主动断开连接，减少闲置资源占用。这个时候 blpop/brpop 会抛出异常来。 所以编写客户端消费者的时候要小心，注意捕获异常，还要重试。… </p>
-<p>4， 锁冲突处理 </p>
-<p>遇到加锁失败怎么办？<br>1、直接抛出异常，通知用户稍后重试;<br>2、sleep 一会再重试;<br>3、将请求转移至延时队列，过一会再试;<br>下面介绍一下。延时队列的实现。</p>
-<p>使用zset(有序列表) 来实现。我们将消息序列化成一个字符串作 为 zset 的 value，这个消息的到期处理时间作为 score，然后用多个线程轮询 zset 获取到期 的任务进行处理，多个线程是为了保障可用性，万一挂了一个线程还有其它线程可以继续处 理。因为有多个线程，所以需要考虑并发争抢任务，确保任务不能被多次执行。 </p>
-<p>···<br>def delay(msg):     msg.id = str(uuid.uuid4()) # 保证 value 值唯一 value = json.dumps(msg)     retry_ts = time.time() + 5 # 5 秒后重试 redis.zadd(“delay-queue”, retry_ts, value)<br>def loop():<br>     while True: # 最多取 1 条<br>        values = redis.zrangebyscore(“delay-queue”, 0, time.time(), start=0, num=1)<br>            if not values:<br>                time.sleep(1) # 延时队列空的，休息 1s<br>                continue         value = values[0] # 拿第一条，也只有一条<br>        success = redis.zrem(“delay-queue”, value) # 从消息队列中移除该消息<br>        if success: # 因为有多进程并发的可能，最终只会有一个进程可以抢到消息<br>            msg = json.loads(value)<br>            handle_msg(msg)<br>····</p>
+        <p>Redis 应用（三）“</p>
+<p>应用一：<br>漏斗限流 </p>
+<a id="more"></a>
+<p>漏斗的剩余空间就代表着当前行为可以持续进行的数量，漏嘴的流水速率代表着<br>系统允许该行为的最大频率。下面我们使用代码来 述单机漏斗算法。</p>
+<p>核心算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># coding: utf8</span><br><span class="line"></span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Funnel(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self, capacity, leaking_rate):</span><br><span class="line">        self.capacity = capacity # 漏斗容量</span><br><span class="line">        self.leaking_rate = leaking_rate # 漏嘴流水速率</span><br><span class="line">        self.left_quota = capacity  # 漏斗剩余空间</span><br><span class="line">        self.leaking_ts = time.time() # 上一次漏水时间</span><br><span class="line">        self.left_quota = capacity  # 漏斗剩余空间 self.leaking_ts = time.time() # 上一次漏水时间</span><br><span class="line"></span><br><span class="line">    def make_space(self):</span><br><span class="line">        now_ts = time.time()</span><br><span class="line"></span><br><span class="line">        delta_ts = now_ts - self.leaking_ts  # 距离上一次漏水过去了多久</span><br><span class="line">        delta_quota = delta_ts * self.leaking_rate # 又可以腾出不少空间了</span><br><span class="line">        if delta_quota &lt; 1: # 腾的空间太少，那就等下次吧</span><br><span class="line">            return</span><br><span class="line">        self.left_quota += delta_quota  # 增加剩余空间</span><br><span class="line">        self.leaking_ts = now_ts # 记录漏水时间</span><br><span class="line">        if self.left_quota &gt; self.capacity:  # 剩余空间不得高于容量</span><br><span class="line">            self.left_quota = self.capacity</span><br><span class="line"></span><br><span class="line">    def watering(self, quota):</span><br><span class="line">        self.make_space()</span><br><span class="line"></span><br><span class="line">        if self.left_quota &gt;= quota:</span><br><span class="line">            self.left_quota -= quota</span><br><span class="line">            return True</span><br><span class="line">        return False</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">funnels = &#123;&#125;  # 所有的漏斗判断剩余空间是否足够</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># capacity 漏斗容量</span><br><span class="line"># leaking_rate 漏嘴流水速率 quota/s</span><br><span class="line">def is_action_allowed(user_id, action_key, capacity, leaking_rate):</span><br><span class="line">    key = &apos;%s:%s&apos; % (user_id, action_key)</span><br><span class="line">    funnel = funnels.get(key)</span><br><span class="line">    if not funnel:</span><br><span class="line">        funnel = Funnel(capacity, leaking_rate)</span><br><span class="line">        funnels[key] = funnel</span><br><span class="line">    return funnel.watering(1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in range(20):</span><br><span class="line">    print is_action_allowed(&apos;laoqian&apos;, &apos;reply&apos;, 15, 0.5)</span><br></pre></td></tr></table></figure>
+<p>Funnel 对象的 make_space 方法是漏斗算法的核心，其在每次灌水前都会被调用以触发 漏水，给漏斗腾出空间来。能腾出多少空间取决于过去了多久以及流水的速率。Funnel 对象 占据的空间大小不再和行为的频率成正比，它的空间占用是一个常量。 </p>
+<p>我们观察 Funnel 对象的几个字段，我们发现可以将 Funnel 对象的内容按字段存储到一 个 hash 结构中，灌水的时候将 hash 结构的字段取出来进行逻辑运算后，再将新值回填到 hash 结构中就完成了一次行为频度的检测。<br>我们无法保证整个过程的原子性。从 hash 结构中取值，然后在内存里 运算，再回填到 hash 结构，这三个过程无法原子化， </p>
+<p>Redis 4.0 供了一个限流 Redis 模块，它叫 redis-cell。 </p>
+<p>举例：<br>cl.throttle laoqian:reply 15 30 60<br>1) (integer) 0<br>2) (integer) 15<br>3) (integer) 14<br>4) (integer) -1<br>5) (integer) 2 </p>
+<h1 id="0-表示允许，1-表示拒绝"><a href="#0-表示允许，1-表示拒绝" class="headerlink" title="0 表示允许，1 表示拒绝"></a>0 表示允许，1 表示拒绝</h1><h1 id="漏斗容量-capacity"><a href="#漏斗容量-capacity" class="headerlink" title="漏斗容量 capacity"></a>漏斗容量 capacity</h1><h1 id="漏斗剩余空间-left-quota"><a href="#漏斗剩余空间-left-quota" class="headerlink" title="漏斗剩余空间 left_quota"></a>漏斗剩余空间 left_quota</h1><h1 id="如果拒绝了，需要多长时间后再试-漏斗有空间了，单位秒"><a href="#如果拒绝了，需要多长时间后再试-漏斗有空间了，单位秒" class="headerlink" title="如果拒绝了，需要多长时间后再试(漏斗有空间了，单位秒)"></a>如果拒绝了，需要多长时间后再试(漏斗有空间了，单位秒)</h1><h1 id="多长时间后，漏斗完全空出来-left-quota-capacity，单位秒"><a href="#多长时间后，漏斗完全空出来-left-quota-capacity，单位秒" class="headerlink" title="多长时间后，漏斗完全空出来(left_quota==capacity，单位秒)"></a>多长时间后，漏斗完全空出来(left_quota==capacity，单位秒)</h1><p>上面这个指令的意思是允许「用户老钱回复行为」的频率为每 60s 最多 30 次(漏水速 率)，漏斗的初始容量为 15，也就是说一开始可以连续回复 15 个帖子，然后才开始受漏水 速率的影响。我们看到这个指令中漏水速率变成了 2 个参数，替代了之前的单个浮点数。用 两个参数相除的结果来表达漏水速率相对单个浮点数要更加直观一些。 </p>
+<p>应用二：GeoHash（附近的人～～）</p>
+<p>用数据库来算附近的人 </p>
+<p>经度范围 (-180, 180]，纬度范围 (-90, 90]，  然后勾股定理算一下就完事儿了。</p>
+<p>GeoHash 算法将二维的经纬度数据映射到一维的整数，这样所有的元素都将在挂载到一 条线上， </p>
+<p>映射算法是这样：</p>
+<p>那这个映射算法具体是怎样的呢?它将整个地球看成一个二维平面，然后划分成了一系 列正方形的方格，就好比围棋棋盘。所有的地图元素坐标都将放置于唯一的方格中。方格越 小，坐标越精确。然后对这些方格进行整数编码，越是靠近的方格编码越是接近。那如何编 码呢?一个最简单的方案就是切蛋糕法。设想一个正方形的蛋糕摆在你面前，二刀下去均分 分成四块小正方形，这四个小正方形可以分别标记为 00,01,10,11 四个二进制整数。然后对 每一个小正方形继续用二刀法切割一下，这时每个小小正方形就可以使用 4bit 的二进制整数 予以表示。然后继续切下去，正方形就会越来越小，二进制整数也会越来越长，精确度就会 越来越高。 </p>
+<p>在使用 Redis 进行 Geo 查询时，我们要时刻想到它的内部结构实际上只是一个 zset(skiplist)。通过 zset 的 score 排序就可以得到坐标附近的其它元素 (实际情况要复杂一 些，不过这样理解足够了)，通过将 score 还原成坐标值就可以得到元素的原始坐标。 </p>
+<p>例子：</p>
+<p>geoadd 指令携带集合名称以及多个经纬度名称三元组，注意这里可以加入多个三元组<br>geoadd company 116.48105 39.996794 juejin </p>
+<p>geodist 指令可以用来计算两个元素之间的距离，携带集合名称、2 个名称和距离单位。<br>geodist company juejin ireader km </p>
+<p>geopos 指令可以获取集合中任意元素的经纬度坐标，可以一次获取多个。<br>geopos company juejin </p>
+<p>geohash 可以获取元素的经纬度编码字符串，上面已经 到，它是 base32 编码。 你可 以使用这个编码值去 <a href="http://geohash.org/${hash}中进行直接定位，它是" target="_blank" rel="noopener">http://geohash.org/${hash}中进行直接定位，它是</a> geohash 的标准编码 值。<br>geohash company ireader </p>
+<p>georadiusbymember 指令是最为关键的指令，它可以用来查询指定元素附近的其它元 素，它的参数非常复杂。<br>geohash company ireader<br>得出来的value<br>wx4g52e1ce0<br>可以通过此网站进行校对 是否正确<br><a href="http://geohash.org/wx4g52e1ce0" target="_blank" rel="noopener">http://geohash.org/wx4g52e1ce0</a> </p>
+<p>georadiusbymember 指令是最为关键的指令，它可以用来查询指定元素附近的其它元 素，它的参数非常复杂。 </p>
+<h1 id="范围-20-公里以内最多-3-个元素按距离正排，它不会排除自身"><a href="#范围-20-公里以内最多-3-个元素按距离正排，它不会排除自身" class="headerlink" title="范围 20 公里以内最多 3 个元素按距离正排，它不会排除自身"></a>范围 20 公里以内最多 3 个元素按距离正排，它不会排除自身</h1><p>127.0.0.1:6379&gt; georadiusbymember company ireader 20 km count 3 asc </p>
+<h1 id="范围-20-公里以内最多-3-个元素按距离倒排"><a href="#范围-20-公里以内最多-3-个元素按距离倒排" class="headerlink" title="范围 20 公里以内最多 3 个元素按距离倒排"></a>范围 20 公里以内最多 3 个元素按距离倒排</h1><p>127.0.0.1:6379&gt; georadiusbymember company ireader 20 km count 3 desc<br>1) “jd” 2) “meituan” 3) “juejin” </p>
+<h1 id="三个可选参数-withcoord-withdist-withhash-用来携带附加参数-withdist-很有用，它可以用来显示距离"><a href="#三个可选参数-withcoord-withdist-withhash-用来携带附加参数-withdist-很有用，它可以用来显示距离" class="headerlink" title="三个可选参数 withcoord withdist withhash 用来携带附加参数# withdist 很有用，它可以用来显示距离"></a>三个可选参数 withcoord withdist withhash 用来携带附加参数# withdist 很有用，它可以用来显示距离</h1><p>127.0.0.1:6379&gt; georadiusbymember company ireader 20 km withcoord withdist withhash count 3 asc </p>
+<p>注意：<br>在一个地图应用中，车的数据、餐馆的数据、人的数据可能会有百万千万条，如果使用 Redis 的 Geo 数据结构，它们将全部放在一个 zset 集合中。在 Redis 的集群环境中，集合 可能会从一个节点迁移到另一个节点，如果单个 key 的数据过大，会对集群的迁移工作造成 较大的影响，在集群环境中单个 key 对应的数据量不宜超过 1M，否则会导致集群迁移出现 卡顿现象，影响线上服务的正常运行。<br>所以，这里建议 Geo 的数据使用单独的 Redis 实例部署，不使用集群环境。<br>如果数据量过亿甚至更大，就需要对 Geo 数据进行拆分，按国家拆分、按省拆分，按 市拆分，在人口特大城市甚至可以按区拆分。这样就可以显著降低单个 zset 集合的大小。 </p>
+<p>应用三。Scan </p>
+<p>需求：有时候需要从 Redis 实例成千上万的 key 中找出特定 前缀的 key 列表来手动处理数据 </p>
+<p>Keys 可以通过正则满足这个需求但是 有两个比较明显的问题：</p>
+<p>1，没有 offset、limit 参数<br>2，keys 算法是遍历算法，复杂度是 O(n)，如果实例中有千万级以上的 key，这个指令<br>就会导致 Redis 服务卡顿，所有读写 Redis 的其它的指令都会被延后甚至会超时报错，因为<br>Redis 是单线程程序，顺序执行所有指令，其它指令必须等到当前的 keys 指令执行完了才<br>可以继续。 </p>
+<p>Redis 添加scan 命令 解决这个问题</p>
+<p>优点：<br>1，通过游标完成，不会阻塞<br>2，提供 limit 参数  提供返回结果的最大条数<br>3，也提供模式匹配的功能<br>4，服务器不需要为游标保存状态，游标的唯一状态就是 scan 返回给客户端的游标整数;<br>需要注意的点：<br>1，返回的结果可能会有重复，需要客户端去重复，这点非常重要;<br>2，遍历的过程中如果有数据修改，改动后的数据能不能遍历到是不确定的;<br>3，单次返回的结果是空的并不意味着遍历结束，而要看返回的游标值是否为零; </p>
+<p>例子：<br>scan 参数 供了三个参数，第一个是 cursor 整数值，第二个是 key 的正则模式，第三<br>个是遍历的 limit hint。<br>第一次遍历时，cursor 值为 0，然后将返回结果中第一个整数值作为<br>下一次遍历的 cursor。一直遍历到返回的 cursor 值为 0 </p>
+<p>scan 0 match key99* count 1000 </p>
+<p>原理现在不想仔细看了</p>
 
       
 
@@ -323,7 +313,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/15/redis-深度历险读书笔记（一）/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/16/redis-深度冒险-读书笔记（三）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -337,18 +327,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/15/wrk-性能测试/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/02/16/redis-深度冒险-读书笔记（四）原理/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          wrk 性能测试
+          redis 深度冒险 读书笔记（四）原理
         
       </div>
     </a>
   
   
-    <a href="/2019/02/15/mac-的-homebrew-安装路径/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mac的homebrew 安装路径 + redis Failed opening the RDB file dump.rdb</div>
+    <a href="/2019/02/15/redis深度历险-读书笔记（二/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis深度历险 读书笔记（二)</div>
       <i class="icon-circle-right"></i>
     </a>
   

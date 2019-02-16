@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>redis 深度历险读书笔记（一） | Mario</title>
+  <title>redis 深度冒险 读书笔记（四）原理 | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章节">
+  <meta name="description" content="redis 原理： 原理 1:鞭辟入里 —— 线程 IO 模型  Redis 是个单线程程序!这点必须铭记。 （redis，node.js，nginx都是）这个线程要同时负责多个客户端套接字的并发读写操作 和内存数据结构的逻辑读写  Redis 单线程为什么还能这么快? 所有的运算都是内存级别的运算  Redis 单线程如何处理那么多的并发客户端连接?   多路复用，select 系列的事件轮询">
 <meta name="keywords" content="读书笔记,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis 深度历险读书笔记（一）">
-<meta property="og:url" content="http://yoursite.com/2019/02/15/redis-深度历险读书笔记（一）/index.html">
+<meta property="og:title" content="redis 深度冒险 读书笔记（四）原理">
+<meta property="og:url" content="http://yoursite.com/2019/02/16/redis-深度冒险-读书笔记（四）原理/index.html">
 <meta property="og:site_name" content="Mario">
-<meta property="og:description" content="第一章节">
+<meta property="og:description" content="redis 原理： 原理 1:鞭辟入里 —— 线程 IO 模型  Redis 是个单线程程序!这点必须铭记。 （redis，node.js，nginx都是）这个线程要同时负责多个客户端套接字的并发读写操作 和内存数据结构的逻辑读写  Redis 单线程为什么还能这么快? 所有的运算都是内存级别的运算  Redis 单线程如何处理那么多的并发客户端连接?   多路复用，select 系列的事件轮询">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T06:26:32.000Z">
+<meta property="og:updated_time" content="2019-02-16T12:15:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis 深度历险读书笔记（一）">
-<meta name="twitter:description" content="第一章节">
+<meta name="twitter:title" content="redis 深度冒险 读书笔记（四）原理">
+<meta name="twitter:description" content="redis 原理： 原理 1:鞭辟入里 —— 线程 IO 模型  Redis 是个单线程程序!这点必须铭记。 （redis，node.js，nginx都是）这个线程要同时负责多个客户端套接字的并发读写操作 和内存数据结构的逻辑读写  Redis 单线程为什么还能这么快? 所有的运算都是内存级别的运算  Redis 单线程如何处理那么多的并发客户端连接?   多路复用，select 系列的事件轮询">
   
     <link rel="alternative" href="/atom.xml" title="Mario" type="application/atom+xml">
   
@@ -161,74 +161,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-redis-深度历险读书笔记（一）" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-redis-深度冒险-读书笔记（四）原理" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      redis 深度历险读书笔记（一）
+      redis 深度冒险 读书笔记（四）原理
     </h1>
   
 
         
-        <a href="/2019/02/15/redis-深度历险读书笔记（一）/" class="archive-article-date">
-  	<time datetime="2019-02-15T06:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+        <a href="/2019/02/16/redis-深度冒险-读书笔记（四）原理/" class="archive-article-date">
+  	<time datetime="2019-02-16T08:04:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第一章节<br><a id="more"></a><br>redis 学习：</p>
-<p>string (字符串)、list (列表)、set (集合)、hash (哈 希) 和 zset (有序集合)。 </p>
-<p>String 一个常见的用途就是缓存用户信息。我们将用户信息结构体 使用 JSON 序列化成字符串，然后将序列化后的字符串塞进 Redis 来缓存。 </p>
-<p>Redis 的字符串是动态字符串，是可以修改的字符串，内部结构实现上类似于 Java 的 ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配，内部为当前字 符串实际分配的空间 capacity 一般要高于实际字符串长度 len。当字符串长度小于 1M 时， 扩容都是加倍现有的空间，如果超过 1M，扩容时一次只会多扩 1M 的空间。需要注意的是 字符串最大长度为 512M。 </p>
-<p>Set/get/del/ mset/ mget/expire／setex = set + expire／setnx。不存在 则创建／incrby/</p>
-<p>mget/mset  是批量获取</p>
-<p>Incrb/Incrby 还可以对它进行自增操作。自增是有范围的，它的范围是 signed long </p>
-<p>list (列表)<br>Redis 的列表相当于 Java 语言里面的 LinkedList，注意它是链表而不是数组。这意味着 list 的插入和删除操作非常快，时间复杂度为 O(1)，但是索引定位很慢，时间复杂度为 O(n)，这点让人非常意外。<br>  当列表弹出了最后一个元素之后，该数据结构自动被删除，内存被回收。<br>Redis 的列表结构常用来做异步队列使用。将需要延后处理的任务结构体序列化成字符 串塞进 Redis 的列表，另一个线程从这个列表中轮询数据进行处理。 </p>
-<p>右边进左边出:队列  :    rpush/llen/lpop/lpush</p>
-<p>右边进右边出:栈  :rpush/rpop/rpush</p>
-<p>慢操作：lrange lindex </p>
-<p>hash (字典)<br>Redis 的字典相当于 Java 语言里面的 HashMap，它是无序字典。内部实现结构上同 Java 的 HashMap 也是一致的，同样的数组 + 链表二维结构。第一维 hash 的数组位置碰撞 时，就会将碰撞的元素使用链表串接起来。 </p>
-<p>￼<br>hset/hget/</p>
-<p>hset 第一次操作返回1，更新操作返回0</p>
-<p>hgetall # entries()，key 和 value 间隔出现</p>
-<p>hlen</p>
-<p>hmset 插入多条数据</p>
-<p>hincrby  自增</p>
-<p>set (集合)<br>Redis 的集合相当于 Java 语言里面的 HashSet，它内部的键值对是无序的唯一的。它的 内部实现相当于一个特殊的字典，字典中所有的 value 都是一个值 NULL。 </p>
-<p>当集合中最后一个元素移除之后，数据结构自动删除，内存被回收。 set 结构可以用来 存储活动中奖的用户 ID，因为有去重功能，可以保证同一个用户不会中奖两次。 </p>
-<p>sadd。</p>
-<p>smembers 查看所有的。sismember  查看指定member<br>scard 获取长度<br>spop 弹出一个</p>
-<hr>
-<p>zset (有序列表)<br>zset 可能是 Redis 提供的最为特色的数据结构，它也是在面试中面试官最爱问的数据结 构。它类似于 Java 的 SortedSet 和 HashMap 的结合体，一方面它是一个 set，保证了内部 value 的唯一性，另一方面它可以给每个 value 赋予一个 score，代表这个 value 的排序权 重。它的内部实现用的是一种叫着「跳跃列表」的数据结构。 </p>
-<p>应用：<br>zset 可以用来存 粉丝列表，value 值是粉丝的用户 ID，score 是关注时间。我们可以对粉丝列表按关注时间 进行排序。<br>zset 还可以用来存储学生的成绩，value 值是学生的 ID，score 是他的考试成绩。我们 可以对成绩按分数进行排序就可以得到他的名次。 </p>
-<p>命令：<br>zadd + key + score + value<br>zrange books 0 -1 # 按 score 排序列出，参数区间为排名范围<br>zrevrange books 0 -1 # 按 score 逆序列出，参数区间为排名范围<br>zrangebyscore books 0 8.91 # 根据分值区间遍历 zset<br> zrangebyscore books -inf 8.91 withscores # 根据分值区间 (-∞, 8.91] 遍历 zset，同时返 回分值。inf 代表 infinite，无穷大的意思。 </p>
-<p>zrem books “java concurrency” # 删除 value </p>
-<p>zcard  计数<br>zscore 获取指定的分值<br>zrank 排名 从0开始 从小到大</p>
-<p>结构解析：</p>
-<p>zset 要支持随机的插入和删除 </p>
-<hr>
-<p>容器型数据结构的通用规则<br>list/set/hash/zset 这四种数据结构是容器型数据结构，它们共享下面两条通用规则: 1、create if not exists 如果容器不存在，那就创建一个，再进行操作。比如 rpush 操作刚开始是没有列表的，<br>Redis 就会自动创建一个，然后再 rpush 进去新元素。2、drop if no elements 如果容器里元素没有了，那么立即删除元素，释放内存。这意味着 lpop 操作到最后一<br>个元素，列表就消失了。 </p>
-<hr>
-<p>应用：分布式锁</p>
-<p>分布式锁本质上要实现的目标就是在 Redis 里面占一个“茅坑”，当别的进程也要来占 时，发现已经有人蹲在那里了，就只好放弃或者稍后再试。<br>占坑一般是使用 setnx(set if not exists) 指令，只允许被一个客户端占坑。先来先占， 用 完了，再调用 del 指令释放茅坑。<br>但是有个问题，如果逻辑执行到中间出现异常了，可能会导致 del 指令没有被调用，这样 就会陷入死锁，锁永远得不到释放。<br>于是我们在拿到锁之后，再给锁加上一个过期时间，比如 5s，这样即使中间出现异常也 可以保证 5 秒之后锁会自动释放。<br>但是我们又遇见一个问题 还是没有办法 保证set 和设置过期时间 是一起执行的</p>
-<p>如果你需要使用分布式锁， 意味着你不能仅仅使用 Jedis 或者 redis-py 就行了，还得引入分布式锁的 library。<br>set lock:codehole true ex 5 nx OK<br>del lock:codehole<br>但是这样害怕 逻辑执行过长</p>
-<p>有一个更加安全的方案是为 set 指令的 value 参数设置为一个随机数，释放锁时先匹配 随机数是否一致，然后再删除 key。但是匹配 value 和删除 key 不是一个原子操作，Redis 也 没有提供类似于 delifequals 这样的指令，这就需要使用 Lua 脚本来处理了，因为 Lua 脚本可 以保证连续多个指令的原子性执行。 </p>
-<hr>
-<p>应用：延时队列</p>
-<p>对于那些只有一组消费者的消息队列，使用 Redis 就可以非常轻松的搞定。<br>Redis 的 list(列表) 数据结构常用来作为异步消息队列使用，使用rpush/lpush操作入队列， 使用 lpop 和 rpop 来出队列<br>使用过程中有几个问题需要注意：<br>1，队列空了怎么办?<br>当list为空了，就会不停的pop，<br>只需要要线程睡一秒就可以了</p>
-<p>2，队列延迟<br>睡眠会导致消息的延迟增大 </p>
-<p>使用：blpop/brpop。   这两个指令的前缀字符 b 代表的是 blocking，也就是阻塞读 </p>
-<p>3，空闲连接自动断开 </p>
-<p>如果线程一直阻塞在哪里，Redis 的客户端连接就成了闲置连接，闲置过久，服务器一般<br>会主动断开连接，减少闲置资源占用。这个时候 blpop/brpop 会抛出异常来。 所以编写客户端消费者的时候要小心，注意捕获异常，还要重试。… </p>
-<p>4， 锁冲突处理 </p>
-<p>遇到加锁失败怎么办？<br>1、直接抛出异常，通知用户稍后重试;<br>2、sleep 一会再重试;<br>3、将请求转移至延时队列，过一会再试;<br>下面介绍一下。延时队列的实现。</p>
-<p>使用zset(有序列表) 来实现。我们将消息序列化成一个字符串作 为 zset 的 value，这个消息的到期处理时间作为 score，然后用多个线程轮询 zset 获取到期 的任务进行处理，多个线程是为了保障可用性，万一挂了一个线程还有其它线程可以继续处 理。因为有多个线程，所以需要考虑并发争抢任务，确保任务不能被多次执行。 </p>
-<p>···<br>def delay(msg):     msg.id = str(uuid.uuid4()) # 保证 value 值唯一 value = json.dumps(msg)     retry_ts = time.time() + 5 # 5 秒后重试 redis.zadd(“delay-queue”, retry_ts, value)<br>def loop():<br>     while True: # 最多取 1 条<br>        values = redis.zrangebyscore(“delay-queue”, 0, time.time(), start=0, num=1)<br>            if not values:<br>                time.sleep(1) # 延时队列空的，休息 1s<br>                continue         value = values[0] # 拿第一条，也只有一条<br>        success = redis.zrem(“delay-queue”, value) # 从消息队列中移除该消息<br>        if success: # 因为有多进程并发的可能，最终只会有一个进程可以抢到消息<br>            msg = json.loads(value)<br>            handle_msg(msg)<br>····</p>
+        <p>redis 原理：</p>
+<p>原理 1:鞭辟入里 —— 线程 IO 模型 </p>
+<p>Redis 是个单线程程序!这点必须铭记。 （redis，node.js，nginx都是）这个线程要同时负责多个客户端套接字的并发读写操作 和内存数据结构的逻辑读写 </p>
+<p>Redis 单线程为什么还能这么快? 所有的运算都是内存级别的运算 </p>
+<p>Redis 单线程如何处理那么多的并发客户端连接?   多路复用，select 系列的事件轮询 API ， 非阻塞IO<br>下面分别解释一下：<br>非阻塞 IO<br>非阻塞 IO 在套接字对象上 供了一个选项 Non_Blocking，当这个选项打开时，读写方 法不会阻塞，而是能读多少读多少，能写多少写多少。<br>事件轮询 (多路复用)<br>非阻塞 IO 有个问题，那就是线程要读数据，结果读了一部分就返回了，线程如何知道 何时才应该继续读。 </p>
+<p>￼</p>
+<p>事件轮询 API 就是用来解决这个问题的，最简单的事件轮询 API 是 select 函数，它是 操作系统 供给用户程序的 API。<br>输入是读写 述符列表 read_fds &amp; write_fds<br>输出是与之 对应的可读可写事件。同时还 供了一个 timeout 参数， </p>
+<p>read_events, write_events = select(read_fds, write_fds, timeout) for event in read_events:<br>handle_read(event.fd) for event in write_events:<br>handle_write(event.fd) handle_others() # 处理其它事情，如定时任务等 </p>
+<p>指令队列<br>Redis 会将每个客户端套接字都关联一个指令队列。客户端的指令通过队列来排队进行 顺序处理，先到先服务。 </p>
+<p>响应队列<br>每个客户端套接字关联一个响应队列 ，<br>Redis 服务器通过响应队列来将 指令的返回结果回复给客户端。 </p>
+<p>定时任务<br>服务器处理要响应 IO 事件外，还要处理其它事情。比如定时任务就是非常重要的一件 事。如果线程阻塞在 select 系统调用上，定时任务将无法得到准时调度。<br>Redis 的定时任务会记录在一个称为最小堆的数据结构中。这个堆中，最快要执行的任 务排在堆的最上方。在每个循环周期，Redis 都会将最小堆里面已经到点的任务立即进行处 理。处理完毕后，将最快要执行的任务还需要的时间记录下来，这个时间就是 select 系统调 用的 timeout 参数。因为 Redis 知道未来 timeout 时间内，没有其它定时任务需要处理，所以 可以安心睡眠 timeout 的时间。 </p>
+<p>原理 2:交头接耳 —— 通信协议<br>RESP 是 Redis 序列化协议的简写。它是一种直观的文本协议，优势在于实现异常简 单，解析性能极好。<br>Redis 协议将传输的结构数据分为 5 种最小单元类型，单元结束时统一加上回车换行符<br>号\r\n。<br>1、单行字符串 以 + 符号开头。<br>2、多行字符串 以 $ 符号开头，后跟字符串长度。<br>3、整数值 以 : 符号开头，后跟整数的字符串形式。<br>4、错误消息 以 - 符号开头。 5、数组 以 * 号开头，后跟数组的长度。 </p>
+<p>客户端 -&gt; 服务器<br>客户端向服务器发送的指令只有一种格式，多行字符串数组。比如一个简单的 set 指令 set author codehole 会被序列化成下面的字符串。<br>“*3\r\n$3\r\nset\r\n$6\r\nauthor\r\n$8\r\ncodehole\r\n “</p>
+<p>服务器 -&gt; 客户端 </p>
+<p>原理 3:未雨绸缪 —— 持久化 </p>
+<p>Redis 的持久化机制有两种，<br>第一种是快照，快照是内存数据的二进制序列化形式，在存储上非常紧凑</p>
+<p>第二种是 AOF 日志。 AOF 日志记录的是内存数据修改的指令记录文本。AOF 日志在长期的运行过程中会 变的无比庞大，数据库重启时需要加载 AOF 日志进行指令重放，这个时间就会无比漫长。 所以需要定期进行 AOF 重写，给 AOF 日志进行瘦身。<br>快照是一次全量备份，AOF 日志是连续的增量备份。 </p>
+<p>快照：<br>Redis 使用操作系统的多进程 COW(Copy On Write) 机制来实现快照持久化，这个机制 很有意思，也很少人知道。多进程 COW 也是鉴定程序员知识广度的一个重要指标。 </p>
+<p>fork(多进程)<br>Redis 在持久化时会调用 glibc 的函数 fork 产生一个子进程，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pid = os.fork() if pid &gt; 0: </span><br><span class="line">handle_client_requests() if pid == 0: </span><br><span class="line">handle_snapshot_write() if pid &lt; 0: </span><br><span class="line"># fork error</span><br></pre></td></tr></table></figure></p>
+<p>子进程做数据持久化，它不会修改现有的内存数据结构，它只是对数据结构进行遍历读<br>取，然后序列化写到磁盘中。但是父进程不一样，它必须持续服务客户端请求，然后对内存<br>数据结构进行不间断的修改。<br>这个时候就会使用操作系统的 COW 机制来进行数据段页面的分离。数据段是由很多操 作系统的页面组合而成，当父进程对其中一个页面的数据进行修改时，会将被共享的页面复 制一份分离出来，然后对这个复制的页面进行修改。这时子进程相应的页面是没有变化的， 还是进程产生时那一瞬间的数据。 </p>
+<p>AOF 日志存储的是 Redis 服务器的顺序指令序列，AOF 日志只记录对内存进行修改的 指令记录。  「重放」，来恢复 Redis 当前实例的内 存数据结构的状态。 Aof原理是 先存到磁盘，然后再执行指令。 </p>
+<p>fsync<br>Linux 的 glibc 供了 fsync(int fd)函数可以将指定文件的内容强制从内核缓存刷到磁 盘<br>Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志就可 以完全替代之前的 AOF 全量文件重放，重启效率因此大幅得到升。 </p>
+<p>原理 4:雷厉风行 —— 管道 </p>
+<p>其实这个是由客户端提供的</p>
+<p>客户端通过对管道中的指令列表改变读写顺序就可以大 幅节省 IO 时间。管道中指令越多，效果越好。 、</p>
+<p>这是我使用redis-benchmark 来进行测试的图，-P 参数，它表示单个管道内并行的请求数量， </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q</span><br><span class="line">SET: 48076.93 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 2</span><br><span class="line">SET: 96711.80 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 3</span><br><span class="line">SET: 125313.29 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 4</span><br><span class="line">SET: 156006.25 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 5</span><br><span class="line">SET: 177619.89 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 6</span><br><span class="line">SET: 198807.16 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 7</span><br><span class="line">SET: 220264.31 requests per second</span><br></pre></td></tr></table></figure>
+<p>现在做一次请求交互的流程：</p>
+<p>￼<br>1、客户端进程调用 write 将消息写到操作系统内核。为套接字分配的发送缓冲 send buffer。<br>2、客户端操作系统内核 将发送缓冲的内容发送到网卡，网卡硬件将数据通过「网际路由」送到服务器的网卡。<br>3、服务器操作系统内核 将网卡的数据放到内核为 套接字分配的接收缓冲 recv buffer。<br>4、服务器进程调用 read 从接收缓冲中取出消息进行处理。 5、服务器进程调用 write 将响应消息写到内核为套接字分配的发送缓冲 send buffer。<br>6、服务器操作系统内核将发送缓冲的内容发送到网卡，网卡硬件将数据通过「网际路由」送到客户端的网卡。<br>7、客户端操作系统内核将网卡的数据放到内核为套接字分配的接收缓冲 recv buffer。<br>8、客户端进程调用 read 从接收缓冲中取出消息返回给上层业务逻辑进行处理。<br>9、结束。 </p>
+<p>原理 5:同舟共济 —— 事务 </p>
+<p>multi 指示事务的开始，<br>exec 指示事务的执行，<br>discard 指示事务的丢弃。 </p>
+<p>pipe = redis.pipeline(transaction=true)<br>pipe.multi() pipe.incr(“books”) pipe.incr(“books”)<br>values = pipe.execute() </p>
+<p>这就会出现并发问题，因为有多个客户端会并发进行操作。<br>我们可以通过 Redis 的分布 式锁来避免冲突，这是一个很好的解决方案。<br>分布式锁是一种悲观锁，那是不是可以使用乐 观锁的方式来解决冲突呢? </p>
+<p>watch 会在事务开始之前盯住 1 个或多个关键变量，当事务执行时，也就是服务器收到 了 exec 指令要顺序执行缓存的事务队列时，Redis 会检查关键变量自 watch 之后，是否被 修改了 (包括当前事务所在的客户端)。 </p>
+<p>注意：Redis 禁止在 multi 和 exec 之间执行 watch 指令，而必须在 multi 之前做好盯住关键 变量，否则会出错。 </p>
 
       
 
@@ -323,7 +310,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/15/redis-深度历险读书笔记（一）/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/16/redis-深度冒险-读书笔记（四）原理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -337,18 +324,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/15/wrk-性能测试/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          wrk 性能测试
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/15/mac-的-homebrew-安装路径/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mac的homebrew 安装路径 + redis Failed opening the RDB file dump.rdb</div>
+    <a href="/2019/02/16/redis-深度冒险-读书笔记（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis 深度冒险 读书笔记（三）</div>
       <i class="icon-circle-right"></i>
     </a>
   
