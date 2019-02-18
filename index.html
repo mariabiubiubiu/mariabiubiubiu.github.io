@@ -161,6 +161,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mgo-遇到的高并发情况" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/18/mgo-遇到的高并发情况/">mgo 遇到的高并发情况</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/18/mgo-遇到的高并发情况/" class="archive-article-date">
+  	<time datetime="2019-02-18T09:20:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>遇到了一个这样的问题<br>我们本来使用的是session.Copy的方式来做（每次使用完成后都会关闭，设置了最大连接池数量）<br>在瞬间启动很多mongo连接后会报错：<br>
+        
+          <a class="article-more-a" href="/2019/02/18/mgo-遇到的高并发情况/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mgo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mongo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/18/mgo-遇到的高并发情况/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-redis-深度冒险-读书笔记（四）原理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -182,41 +266,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>redis 原理：</p>
-<p>原理 1:鞭辟入里 —— 线程 IO 模型 </p>
-<p>Redis 是个单线程程序!这点必须铭记。 （redis，node.js，nginx都是）这个线程要同时负责多个客户端套接字的并发读写操作 和内存数据结构的逻辑读写 </p>
-<p>Redis 单线程为什么还能这么快? 所有的运算都是内存级别的运算 </p>
-<p>Redis 单线程如何处理那么多的并发客户端连接?   多路复用，select 系列的事件轮询 API ， 非阻塞IO<br>下面分别解释一下：<br>非阻塞 IO<br>非阻塞 IO 在套接字对象上 供了一个选项 Non_Blocking，当这个选项打开时，读写方 法不会阻塞，而是能读多少读多少，能写多少写多少。<br>事件轮询 (多路复用)<br>非阻塞 IO 有个问题，那就是线程要读数据，结果读了一部分就返回了，线程如何知道 何时才应该继续读。 </p>
-<p>￼</p>
-<p>事件轮询 API 就是用来解决这个问题的，最简单的事件轮询 API 是 select 函数，它是 操作系统 供给用户程序的 API。<br>输入是读写 述符列表 read_fds &amp; write_fds<br>输出是与之 对应的可读可写事件。同时还 供了一个 timeout 参数， </p>
-<p>read_events, write_events = select(read_fds, write_fds, timeout) for event in read_events:<br>handle_read(event.fd) for event in write_events:<br>handle_write(event.fd) handle_others() # 处理其它事情，如定时任务等 </p>
-<p>指令队列<br>Redis 会将每个客户端套接字都关联一个指令队列。客户端的指令通过队列来排队进行 顺序处理，先到先服务。 </p>
-<p>响应队列<br>每个客户端套接字关联一个响应队列 ，<br>Redis 服务器通过响应队列来将 指令的返回结果回复给客户端。 </p>
-<p>定时任务<br>服务器处理要响应 IO 事件外，还要处理其它事情。比如定时任务就是非常重要的一件 事。如果线程阻塞在 select 系统调用上，定时任务将无法得到准时调度。<br>Redis 的定时任务会记录在一个称为最小堆的数据结构中。这个堆中，最快要执行的任 务排在堆的最上方。在每个循环周期，Redis 都会将最小堆里面已经到点的任务立即进行处 理。处理完毕后，将最快要执行的任务还需要的时间记录下来，这个时间就是 select 系统调 用的 timeout 参数。因为 Redis 知道未来 timeout 时间内，没有其它定时任务需要处理，所以 可以安心睡眠 timeout 的时间。 </p>
-<p>原理 2:交头接耳 —— 通信协议<br>RESP 是 Redis 序列化协议的简写。它是一种直观的文本协议，优势在于实现异常简 单，解析性能极好。<br>Redis 协议将传输的结构数据分为 5 种最小单元类型，单元结束时统一加上回车换行符<br>号\r\n。<br>1、单行字符串 以 + 符号开头。<br>2、多行字符串 以 $ 符号开头，后跟字符串长度。<br>3、整数值 以 : 符号开头，后跟整数的字符串形式。<br>4、错误消息 以 - 符号开头。 5、数组 以 * 号开头，后跟数组的长度。 </p>
-<p>客户端 -&gt; 服务器<br>客户端向服务器发送的指令只有一种格式，多行字符串数组。比如一个简单的 set 指令 set author codehole 会被序列化成下面的字符串。<br>“*3\r\n$3\r\nset\r\n$6\r\nauthor\r\n$8\r\ncodehole\r\n “</p>
-<p>服务器 -&gt; 客户端 </p>
-<p>原理 3:未雨绸缪 —— 持久化 </p>
-<p>Redis 的持久化机制有两种，<br>第一种是快照，快照是内存数据的二进制序列化形式，在存储上非常紧凑</p>
-<p>第二种是 AOF 日志。 AOF 日志记录的是内存数据修改的指令记录文本。AOF 日志在长期的运行过程中会 变的无比庞大，数据库重启时需要加载 AOF 日志进行指令重放，这个时间就会无比漫长。 所以需要定期进行 AOF 重写，给 AOF 日志进行瘦身。<br>快照是一次全量备份，AOF 日志是连续的增量备份。 </p>
-<p>快照：<br>Redis 使用操作系统的多进程 COW(Copy On Write) 机制来实现快照持久化，这个机制 很有意思，也很少人知道。多进程 COW 也是鉴定程序员知识广度的一个重要指标。 </p>
-<p>fork(多进程)<br>Redis 在持久化时会调用 glibc 的函数 fork 产生一个子进程，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pid = os.fork() if pid &gt; 0: </span><br><span class="line">handle_client_requests() if pid == 0: </span><br><span class="line">handle_snapshot_write() if pid &lt; 0: </span><br><span class="line"># fork error</span><br></pre></td></tr></table></figure></p>
-<p>子进程做数据持久化，它不会修改现有的内存数据结构，它只是对数据结构进行遍历读<br>取，然后序列化写到磁盘中。但是父进程不一样，它必须持续服务客户端请求，然后对内存<br>数据结构进行不间断的修改。<br>这个时候就会使用操作系统的 COW 机制来进行数据段页面的分离。数据段是由很多操 作系统的页面组合而成，当父进程对其中一个页面的数据进行修改时，会将被共享的页面复 制一份分离出来，然后对这个复制的页面进行修改。这时子进程相应的页面是没有变化的， 还是进程产生时那一瞬间的数据。 </p>
-<p>AOF 日志存储的是 Redis 服务器的顺序指令序列，AOF 日志只记录对内存进行修改的 指令记录。  「重放」，来恢复 Redis 当前实例的内 存数据结构的状态。 Aof原理是 先存到磁盘，然后再执行指令。 </p>
-<p>fsync<br>Linux 的 glibc 供了 fsync(int fd)函数可以将指定文件的内容强制从内核缓存刷到磁 盘<br>Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志就可 以完全替代之前的 AOF 全量文件重放，重启效率因此大幅得到升。 </p>
-<p>原理 4:雷厉风行 —— 管道 </p>
-<p>其实这个是由客户端提供的</p>
-<p>客户端通过对管道中的指令列表改变读写顺序就可以大 幅节省 IO 时间。管道中指令越多，效果越好。 、</p>
-<p>这是我使用redis-benchmark 来进行测试的图，-P 参数，它表示单个管道内并行的请求数量， </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q</span><br><span class="line">SET: 48076.93 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 2</span><br><span class="line">SET: 96711.80 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 3</span><br><span class="line">SET: 125313.29 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 4</span><br><span class="line">SET: 156006.25 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 5</span><br><span class="line">SET: 177619.89 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 6</span><br><span class="line">SET: 198807.16 requests per second</span><br><span class="line"></span><br><span class="line">mario-tututu:demo mu$  redis-benchmark -t set -q -P 7</span><br><span class="line">SET: 220264.31 requests per second</span><br></pre></td></tr></table></figure>
-<p>现在做一次请求交互的流程：</p>
-<p>￼<br>1、客户端进程调用 write 将消息写到操作系统内核。为套接字分配的发送缓冲 send buffer。<br>2、客户端操作系统内核 将发送缓冲的内容发送到网卡，网卡硬件将数据通过「网际路由」送到服务器的网卡。<br>3、服务器操作系统内核 将网卡的数据放到内核为 套接字分配的接收缓冲 recv buffer。<br>4、服务器进程调用 read 从接收缓冲中取出消息进行处理。 5、服务器进程调用 write 将响应消息写到内核为套接字分配的发送缓冲 send buffer。<br>6、服务器操作系统内核将发送缓冲的内容发送到网卡，网卡硬件将数据通过「网际路由」送到客户端的网卡。<br>7、客户端操作系统内核将网卡的数据放到内核为套接字分配的接收缓冲 recv buffer。<br>8、客户端进程调用 read 从接收缓冲中取出消息返回给上层业务逻辑进行处理。<br>9、结束。 </p>
-<p>原理 5:同舟共济 —— 事务 </p>
-<p>multi 指示事务的开始，<br>exec 指示事务的执行，<br>discard 指示事务的丢弃。 </p>
-<p>pipe = redis.pipeline(transaction=true)<br>pipe.multi() pipe.incr(“books”) pipe.incr(“books”)<br>values = pipe.execute() </p>
-<p>这就会出现并发问题，因为有多个客户端会并发进行操作。<br>我们可以通过 Redis 的分布 式锁来避免冲突，这是一个很好的解决方案。<br>分布式锁是一种悲观锁，那是不是可以使用乐 观锁的方式来解决冲突呢? </p>
-<p>watch 会在事务开始之前盯住 1 个或多个关键变量，当事务执行时，也就是服务器收到 了 exec 指令要顺序执行缓存的事务队列时，Redis 会检查关键变量自 watch 之后，是否被 修改了 (包括当前事务所在的客户端)。 </p>
-<p>注意：Redis 禁止在 multi 和 exec 之间执行 watch 指令，而必须在 multi 之前做好盯住关键 变量，否则会出错。 </p>
-
+        
+          <a class="article-more-a" href="/2019/02/16/redis-深度冒险-读书笔记（四）原理/#more">more >></a>
+        
       
 
       
@@ -903,82 +955,6 @@
 
 
   
-    <article id="post-golang-test" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/08/golang-test/">golang test</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/08/golang-test/" class="archive-article-date">
-  	<time datetime="2018-10-08T13:48:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>现在只是加上一些关于性能测试的一点拾遗。之后会添加gotests框架的使用等</p>
-        
-          <a class="article-more-a" href="/2018/10/08/golang-test/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/08/golang-test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1096,6 +1072,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mgo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
@@ -1108,11 +1092,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
               <li class="article-tag-list-item">
