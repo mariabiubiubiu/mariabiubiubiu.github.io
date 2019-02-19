@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-02-18T11:25:10.000Z</updated>
+  <updated>2019-02-19T03:20:12.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker 尝试</title>
+    <link href="http://yoursite.com/2019/02/18/docker-%E5%B0%9D%E8%AF%95/"/>
+    <id>http://yoursite.com/2019/02/18/docker-尝试/</id>
+    <published>2019-02-18T13:24:43.000Z</published>
+    <updated>2019-02-19T03:20:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Install docker<br>brew install docker<br>brew install docker-machine<br><a id="more"></a><br> <br> <br>1 $ docker run -d -p 80:80 –name webserver nginx<br>1 $ docker stop webserver<br>2 $ docker rm webserver</p><p>brew 是从下载源码解压然后 ./configure &amp;&amp; make install ，同时会包含相关依存库。并自动配置好各种环境变量，而且易于卸载。<br>这个对程序员来说很方便，简单的指令，就能快速安装和升级本地的各种开发环境。<br> <br>而 brew cask 是 已经编译好了的应用包 （.dmg/.pkg），仅仅是下载解压，放在统一的目录中（/opt/homebrew-cask/Caskroom），省掉了自己去下载、解压、拖拽（安装）等蛋疼步骤，同样，卸载相当容易与干净。这个对一般用户来说会比较方便，包含很多在 AppStore 里没有的常用软件。<br> <br> <br>Hello world<br> <br>docker run ubuntu:15.10 /bin/echo “Hello world”<br>各个参数解析：</p><ul><li>-t:在新容器内指定一个伪终端或终端。 </li><li>-i:允许你对容器内的标准输入 (STDIN) 进行交互。     docker ps docker logs + id或者是 + name docker stop + id或者是 + name # docker pull training/webapp  # 载入镜像</li><li><h1 id="docker-run-d-P-training-webapp-python-app-py-或者-docker-run-d-p-5000-5000-training-webapp-python-app-py-参数说明"><a href="#docker-run-d-P-training-webapp-python-app-py-或者-docker-run-d-p-5000-5000-training-webapp-python-app-py-参数说明" class="headerlink" title="docker run -d -P training/webapp python app.py 或者 docker run -d -p 5000:5000 training/webapp python app.py    参数说明:"></a>docker run -d -P training/webapp python app.py 或者 docker run -d -p 5000:5000 training/webapp python app.py    参数说明:</h1><ul><li>-d:让容器在后台运行。 </li><li>-P:将容器内部使用的网络端口映射到我们使用的主机上。 查看端口 docker port + id或者是 + name docker rm docker logs -f bf08b7f2cd89  </li></ul></li><li>-f: 让 docker logs 像使用 tail -f 一样来输出容器内部的标准输出。 docker top 来查看容器内部运行的进程   获取一个新的镜像(可以加版本号，也可以不加） </li><li> docker pull ubuntu:13.10 </li><li>   查找镜像 docker search httpd   查看本机拥有镜像 docker images      创建镜像 当我们从docker镜像仓库中下载的镜像不能满足我们的需求时，我们可以通过以下两种方式对镜像进行更改。<ul><li>1.从已经创建的容器中更新镜像，并且提交这个镜像</li><li>2.使用 Dockerfile 指令来创建一个新的镜像</li></ul></li><li>更新镜像之前，我们需要使用镜像来创建一个容器。 runoob@runoob:~$ docker run -t -i ubuntu:15.10 /bin/bash 在运行的容器内使用 apt-get update 命令进行更新。 docker commit -m=”has update” -a=”runoob” e218edb10161 runoob/ubuntu:v2  </li><li> 各个参数说明：<ul><li>-m:提交的描述信息 </li><li>-a:指定镜像作者 </li><li>e218edb10161：容器ID </li><li>runoob/ubuntu:v2:指定要创建的目标镜像名 </li></ul></li><li> 之后启动新的容器 docker run -t -i runoob/ubuntu:v2 /bin/bash       构建镜像 使用docker build 。从零开始 我们需要创建一个Dockerfile </li><li> FROM    centos:6.7 MAINTAINER      Fisher “<a href="mailto:fisher@sudops.com" target="_blank" rel="noopener">fisher@sudops.com</a>“</li><li></li><li>RUN     /bin/echo ‘root:123456’ |chpasswd</li><li>RUN     useradd runoob</li><li>RUN     /bin/echo ‘runoob:123456’ |chpasswd</li><li>RUN     /bin/echo -e “LANG=\”en_US.UTF-8\”” &gt;/etc/default/local</li><li>EXPOSE  22</li><li>EXPOSE  80</li><li>CMD     /usr/sbin/sshd -D    每一个指令都会在镜像上创建一个新的层，每一个指令的前缀都必须是大写的。 然后，我们使用 Dockerfile 文件，通过 docker build 命令来构建一个镜像。    docker build -t runoob/centos:6.7 . </li><li><ul><li>-t ：指定要创建的目标镜像名 </li><li>. ：Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径 <br>(1)docker run -d -P –name runoob training/webapp python app.py<br>可以用  –name 标识来命名容器</li></ul></li></ul><p> 启动nginx也类似。docker run -d -p 80:80 —name mynginx nginx <br>(2)docker run -p 80:80 –name mynginx -v $PWD/www:/www -v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf -v $PWD/logs:/wwwlogs  -d nginx  </p><ul><li>-p 80:80：将容器的80端口映射到主机的80端口 </li><li>–name mynginx：将容器命名为mynginx </li><li>-v $PWD/www:/www：将主机中当前目录下的www挂载到容器的/www </li><li>-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf：将主机中当前目录下的nginx.conf挂载到容器的/etc/nginx/nginx.conf </li><li>-v $PWD/logs:/wwwlogs：将主机中当前目录下的logs挂载到容器的/wwwlogs </li></ul><p>Docker search mysql</p><p>Docker pull mysql:5.7</p><p>docker run -p 3306:3306 –name mymysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</p><p>docker run -p 3306:3306 –name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</p><p>命令说明：</p><ul><li>-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口。 </li><li>-v -v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。 </li><li>-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs。 </li><li>-v $PWD/data:/var/lib/mysql ：将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。 </li><li>-e MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。 </li></ul><p>进入docker 容器中<br>Docker exec -it +id /name</p><p>Golang 支持交叉编译，在一个平台上生成另一个平台的可执行程序，最近使用了一下，非常好用，这里备忘一下。</p><p>Mac 下编译 Linux 和 Windows 64位可执行程序</p><p>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go<br>CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go<br>1<br>2<br>Linux 下编译 Mac 和 Windows 64位可执行程序</p><p>CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.go<br>CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go<br>1<br>2<br>Windows 下编译 Mac 和 Linux 64位可执行程序</p><p>SET CGO_ENABLED=0<br>SET GOOS=darwin<br>SET GOARCH=amd64<br>go build main.go</p><p>SET CGO_ENABLED=0<br>SET GOOS=linux<br>SET GOARCH=amd64</p><h2 id="go-build-main-go"><a href="#go-build-main-go" class="headerlink" title="go build main.go"></a>go build main.go</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Install docker&lt;br&gt;brew install docker&lt;br&gt;brew install docker-machine&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+      <category term="入门" scheme="http://yoursite.com/tags/%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>mgo 遇到的高并发情况</title>
@@ -419,26 +441,6 @@
     
     
       <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis面试</title>
-    <link href="http://yoursite.com/2018/09/25/redis%E9%9D%A2%E8%AF%95/"/>
-    <id>http://yoursite.com/2018/09/25/redis面试/</id>
-    <published>2018-09-25T12:09:23.000Z</published>
-    <updated>2018-11-18T11:40:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>整理的一些关于redis入门以及面试的东西</p><a id="more"></a><p>#1. 简介<br>单线程为什么这么快？</p><p>纯内存<br>非阻塞IO<br>避免线程切换和竞争消耗<br>单线程Redis注意事项</p><p>一次只运行一条命令</p><p>拒绝长（慢）命令，例如：keys、flushall、flushdb、slow lua script、mutil/exec、operate big value(collection)</p><p>Redis其实不是单线程，fysnc file descriptor进行持久化</p><p>特性</p><p>速度快<br>持久化<br>多钟数据结构<br>支持多种编程语言<br>功能丰富<br>简单<br>主从复制<br>高可用，分布式</p><p>#2. 应用场景<br>缓存系统</p><p>排行版</p><p>计数器</p><p>社交网络</p><p>消息队列系统</p><p>实时系统</p><p>#3. 数据类型</p><p>redis</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;整理的一些关于redis入门以及面试的东西&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="面试" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   

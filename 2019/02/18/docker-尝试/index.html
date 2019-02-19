@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>java项目部署到linux | Mario</title>
+  <title>docker 尝试 | Mario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="还是比较容易的，随手记录一下 1，在maven项目中执行mvn mvn clean install -Dmaven.test.skip=true 2，在export包中找到jar文件 3，拷贝到linux中 执行java jar +filename">
-<meta name="keywords" content="随笔">
+  <meta name="description" content="Install dockerbrew install dockerbrew install docker-machine">
+<meta name="keywords" content="docker,入门">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java项目部署到linux">
-<meta property="og:url" content="http://yoursite.com/2018/09/28/java项目部署到linux/index.html">
+<meta property="og:title" content="docker 尝试">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/docker-尝试/index.html">
 <meta property="og:site_name" content="Mario">
-<meta property="og:description" content="还是比较容易的，随手记录一下 1，在maven项目中执行mvn mvn clean install -Dmaven.test.skip=true 2，在export包中找到jar文件 3，拷贝到linux中 执行java jar +filename">
+<meta property="og:description" content="Install dockerbrew install dockerbrew install docker-machine">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-18T11:40:24.000Z">
+<meta property="og:updated_time" content="2019-02-19T03:20:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java项目部署到linux">
-<meta name="twitter:description" content="还是比较容易的，随手记录一下 1，在maven项目中执行mvn mvn clean install -Dmaven.test.skip=true 2，在export包中找到jar文件 3，拷贝到linux中 执行java jar +filename">
+<meta name="twitter:title" content="docker 尝试">
+<meta name="twitter:description" content="Install dockerbrew install dockerbrew install docker-machine">
   
     <link rel="alternative" href="/atom.xml" title="Mario" type="application/atom+xml">
   
@@ -161,32 +161,95 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java项目部署到linux" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-docker-尝试" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      java项目部署到linux
+      docker 尝试
     </h1>
   
 
         
-        <a href="/2018/09/28/java项目部署到linux/" class="archive-article-date">
-  	<time datetime="2018-09-28T09:05:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-28</time>
+        <a href="/2019/02/18/docker-尝试/" class="archive-article-date">
+  	<time datetime="2019-02-18T13:24:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>还是比较容易的，随手记录一下</p>
-<p>1，在maven项目中执行mvn</p>
-<p>mvn clean install -Dmaven.test.skip=true</p>
-<p>2，在export包中找到jar文件</p>
-<p>3，拷贝到linux中 执行java jar +filename</p>
-
+        <p>Install docker<br>brew install docker<br>brew install docker-machine<br><a id="more"></a><br> <br> <br>1 $ docker run -d -p 80:80 –name webserver nginx<br>1 $ docker stop webserver<br>2 $ docker rm webserver</p>
+<p>brew 是从下载源码解压然后 ./configure &amp;&amp; make install ，同时会包含相关依存库。并自动配置好各种环境变量，而且易于卸载。<br>这个对程序员来说很方便，简单的指令，就能快速安装和升级本地的各种开发环境。<br> <br>而 brew cask 是 已经编译好了的应用包 （.dmg/.pkg），仅仅是下载解压，放在统一的目录中（/opt/homebrew-cask/Caskroom），省掉了自己去下载、解压、拖拽（安装）等蛋疼步骤，同样，卸载相当容易与干净。这个对一般用户来说会比较方便，包含很多在 AppStore 里没有的常用软件。<br> <br> <br>Hello world<br> <br>docker run ubuntu:15.10 /bin/echo “Hello world”<br>各个参数解析：</p>
+<ul>
+<li>-t:在新容器内指定一个伪终端或终端。 </li>
+<li>-i:允许你对容器内的标准输入 (STDIN) 进行交互。     docker ps docker logs + id或者是 + name docker stop + id或者是 + name # docker pull training/webapp  # 载入镜像</li>
+<li><h1 id="docker-run-d-P-training-webapp-python-app-py-或者-docker-run-d-p-5000-5000-training-webapp-python-app-py-参数说明"><a href="#docker-run-d-P-training-webapp-python-app-py-或者-docker-run-d-p-5000-5000-training-webapp-python-app-py-参数说明" class="headerlink" title="docker run -d -P training/webapp python app.py 或者 docker run -d -p 5000:5000 training/webapp python app.py    参数说明:"></a>docker run -d -P training/webapp python app.py 或者 docker run -d -p 5000:5000 training/webapp python app.py    参数说明:</h1><ul>
+<li>-d:让容器在后台运行。 </li>
+<li>-P:将容器内部使用的网络端口映射到我们使用的主机上。 查看端口 docker port + id或者是 + name docker rm docker logs -f bf08b7f2cd89  </li>
+</ul>
+</li>
+<li>-f: 让 docker logs 像使用 tail -f 一样来输出容器内部的标准输出。 docker top 来查看容器内部运行的进程   获取一个新的镜像(可以加版本号，也可以不加） </li>
+<li> docker pull ubuntu:13.10 </li>
+<li>   查找镜像 docker search httpd   查看本机拥有镜像 docker images      创建镜像 当我们从docker镜像仓库中下载的镜像不能满足我们的需求时，我们可以通过以下两种方式对镜像进行更改。<ul>
+<li>1.从已经创建的容器中更新镜像，并且提交这个镜像</li>
+<li>2.使用 Dockerfile 指令来创建一个新的镜像</li>
+</ul>
+</li>
+<li>更新镜像之前，我们需要使用镜像来创建一个容器。 runoob@runoob:~$ docker run -t -i ubuntu:15.10 /bin/bash 在运行的容器内使用 apt-get update 命令进行更新。 docker commit -m=”has update” -a=”runoob” e218edb10161 runoob/ubuntu:v2  </li>
+<li> 各个参数说明：<ul>
+<li>-m:提交的描述信息 </li>
+<li>-a:指定镜像作者 </li>
+<li>e218edb10161：容器ID </li>
+<li>runoob/ubuntu:v2:指定要创建的目标镜像名 </li>
+</ul>
+</li>
+<li> 之后启动新的容器 docker run -t -i runoob/ubuntu:v2 /bin/bash       构建镜像 使用docker build 。从零开始 我们需要创建一个Dockerfile </li>
+<li> FROM    centos:6.7 MAINTAINER      Fisher “<a href="mailto:fisher@sudops.com" target="_blank" rel="noopener">fisher@sudops.com</a>“</li>
+<li></li>
+<li>RUN     /bin/echo ‘root:123456’ |chpasswd</li>
+<li>RUN     useradd runoob</li>
+<li>RUN     /bin/echo ‘runoob:123456’ |chpasswd</li>
+<li>RUN     /bin/echo -e “LANG=\”en_US.UTF-8\”” &gt;/etc/default/local</li>
+<li>EXPOSE  22</li>
+<li>EXPOSE  80</li>
+<li>CMD     /usr/sbin/sshd -D    每一个指令都会在镜像上创建一个新的层，每一个指令的前缀都必须是大写的。 然后，我们使用 Dockerfile 文件，通过 docker build 命令来构建一个镜像。    docker build -t runoob/centos:6.7 . </li>
+<li><ul>
+<li>-t ：指定要创建的目标镜像名 </li>
+<li>. ：Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径 <br>(1)docker run -d -P –name runoob training/webapp python app.py<br>可以用  –name 标识来命名容器</li>
+</ul>
+</li>
+</ul>
+<p> 启动nginx也类似。docker run -d -p 80:80 —name mynginx nginx <br>(2)docker run -p 80:80 –name mynginx -v $PWD/www:/www -v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf -v $PWD/logs:/wwwlogs  -d nginx  </p>
+<ul>
+<li>-p 80:80：将容器的80端口映射到主机的80端口 </li>
+<li>–name mynginx：将容器命名为mynginx </li>
+<li>-v $PWD/www:/www：将主机中当前目录下的www挂载到容器的/www </li>
+<li>-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf：将主机中当前目录下的nginx.conf挂载到容器的/etc/nginx/nginx.conf </li>
+<li>-v $PWD/logs:/wwwlogs：将主机中当前目录下的logs挂载到容器的/wwwlogs </li>
+</ul>
+<p>Docker search mysql</p>
+<p>Docker pull mysql:5.7</p>
+<p>docker run -p 3306:3306 –name mymysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</p>
+<p>docker run -p 3306:3306 –name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</p>
+<p>命令说明：</p>
+<ul>
+<li>-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口。 </li>
+<li>-v -v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。 </li>
+<li>-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs。 </li>
+<li>-v $PWD/data:/var/lib/mysql ：将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。 </li>
+<li>-e MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。 </li>
+</ul>
+<p>进入docker 容器中<br>Docker exec -it +id /name</p>
+<p>Golang 支持交叉编译，在一个平台上生成另一个平台的可执行程序，最近使用了一下，非常好用，这里备忘一下。</p>
+<p>Mac 下编译 Linux 和 Windows 64位可执行程序</p>
+<p>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go<br>CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go<br>1<br>2<br>Linux 下编译 Mac 和 Windows 64位可执行程序</p>
+<p>CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.go<br>CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go<br>1<br>2<br>Windows 下编译 Mac 和 Linux 64位可执行程序</p>
+<p>SET CGO_ENABLED=0<br>SET GOOS=darwin<br>SET GOARCH=amd64<br>go build main.go</p>
+<p>SET CGO_ENABLED=0<br>SET GOOS=linux<br>SET GOARCH=amd64</p>
+<h2 id="go-build-main-go"><a href="#go-build-main-go" class="headerlink" title="go build main.go"></a>go build main.go</h2>
       
 
       
@@ -220,7 +283,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">入门</a>
         		</li>
       		
 		</ul>
@@ -276,7 +343,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/28/java项目部署到linux/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/18/docker-尝试/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -290,18 +357,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/09/29/golang-cache/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          golang cache
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/09/28/实习linux命令总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">实习linux命令总结</div>
+    <a href="/2019/02/18/mgo-遇到的高并发情况/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mgo 遇到的高并发情况</div>
       <i class="icon-circle-right"></i>
     </a>
   
